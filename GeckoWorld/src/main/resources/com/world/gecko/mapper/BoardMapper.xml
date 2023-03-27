@@ -9,11 +9,15 @@
 	</select>
 	<select id="postList" resultType="com.world.gecko.domain.PostVo"
 		parameterType="map">
-		select * from post_
+		select * from post_ where tag != 'A'
 		order by num desc limit #{startIndex}, 7
 	</select>
 	<select id="getPage" resultType="com.world.gecko.domain.PageVo">
-		select count(*) as count from post_	
+		select count(*) as count from post_
+		where tag != 'A'
+	</select>
+	<select id="getResponse" resultType="com.world.gecko.domain.PostVo">
+		select * from post_ where (tag = 'A' and pnum=#{pnum})
 	</select>
 	<select id="latestNum" resultType="Integer">
 		select max(num) from post_

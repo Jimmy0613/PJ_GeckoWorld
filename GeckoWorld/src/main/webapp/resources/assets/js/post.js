@@ -4,11 +4,11 @@ let writerDate = document.querySelector("#writerDate");
 let postContent = document.querySelector("#postContent");
 let postArea = document.querySelector("#postArea");
 let commentCount = document.querySelector("#commentCount");
-let responseBtn = document.querySelector("#responseBtn");
 let currentPage = 1;
 let totalPage = '<c:out value="${totalPage}"/>';
 let prevPageSpan = document.querySelector("#prevPage");
 let nextPageSpan = document.querySelector("#nextPage");
+let responseMsg = document.querySelector("#responseMsg");
 function showPost(num) {
     let uri = encodeURI('/board/getPost?num=' + num);
     $.ajax({
@@ -31,7 +31,15 @@ function showPost(num) {
                 case "Q":
                     tag.style.backgroundColor = "coral";
                     tag.innerHTML = '질문';
-                    responseBtn.innerHTML = '&nbsp;&nbsp;&nbsp;<a href="/board/newpost?tag=A">답변하기</a>';
+                    var str = '<button onclick="location.href=\'/board/newpost?tag=A&pnum='+data.num + '\'">답변하기</button>&nbsp;&nbsp;';
+                    if(data.response_count==0){
+                        str += '아직 답변이 없습니다.&nbsp;';
+                    } else {
+                        str += data.response_count + ' 개의 답변이 있습니다.&nbsp;';
+                        str += '<button onclick="showResponse(' + data.num + ');">보기</button>&nbsp;';
+                    }
+                    responseMsg.innerHTML = str;
+
                     break;
                 case "A":
                     tag.style.backgroundColor = "cornflowerblue";
@@ -110,12 +118,12 @@ function movePage(page) {
             if (currentPage == 1) {
                 prevPageSpan.innerHTML = "";
             } else {
-                prevPageSpan.innerHTML = "이전 목록 불러오기";
+                prevPageSpan.innerHTML = "《《 이전 목록 불러오기 ";
             }
             if (currentPage == totalPage) {
                 nextPageSpan.innerHTML = "";
             } else {
-                nextPageSpan.innerHTML = "다음 목록 불러오기";
+                nextPageSpan.innerHTML = "다음 목록 불러오기 》》";
             }
         },
         error: function () {

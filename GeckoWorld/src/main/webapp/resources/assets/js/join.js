@@ -19,14 +19,20 @@ function id_onchange() {
   id_msg.innerHTML = "";
 }
 function pw_onchange() {
+  const pwPattern = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z\d~!@#$%^&*]{8,14}$/;
   pw_check1.innerHTML = "";
   pw_check2.innerHTML = "";
   if (pw1.value !== null && pw2.value !== null) {
     if (pw1.value === pw2.value) {
-      pw_check1.innerHTML = " ✔";
-      pw_check2.innerHTML = " ✔";
-      pw_msg.innerHTML = "비밀번호가 일치합니다.";
-      pw_msg.style.color = "blue";
+      if(pwPattern.test(pw1.value)){
+        pw_check1.innerHTML = " ✔";
+        pw_check2.innerHTML = " ✔";
+        pw_msg.innerHTML = "비밀번호가 일치합니다.";
+        pw_msg.style.color = "blue";
+      } else {
+        pw_msg.innerHTML = "영문(소문자or대문자), 숫자를 모두 포함해야합니다. (특수문자는 ~!@#$%^&*만 가능)";
+        pw_msg.style.color = "red";
+      }
     } else {
       pw_msg.innerHTML = "비밀번호가 일치하지 않습니다.";
       pw_msg.style.color = "red";
@@ -39,26 +45,34 @@ function id_confirm() {
     id_msg.style.color = "red";
     return;
   } else {
-    let uri = encodeURI("/user/id_confirm?user_id=" + id.value);
-    $.get(uri, function (data) {
-      console.log(data);
-      if (data === false) {
-        id_msg.innerHTML = "사용할 수 있는 아이디입니다.";
-        id_msg.style.color = "blue";
-        id_check.innerHTML = " ✔";
-        id_confirm_btn.style.opacity = 0.5;
-        id_confirm_btn.disabled = true;
-        id_confirm_btn.style.cursor = "default";
-        return;
-      } else {
-        id_msg.innerHTML = "이미 사용 중인 아이디입니다.";
-        id_msg.style.color = "red";
-        id_check.innerHTML = "";
-        return;
-      }
-    }).fail(function () {
-      alert("서버와 통신 중 오류가 발생했습니다.");
-    });
+    const idPattern = /^(?=.*\d)(?=.*[a-z])[a-z\d]{5,12}$/;
+    if (idPattern.test(id.value)) {
+      let uri = encodeURI("/user/id_confirm?user_id=" + id.value);
+      $.get(uri, function (data) {
+        console.log(data);
+        if (data === false) {
+          id_msg.innerHTML = "사용할 수 있는 아이디입니다.";
+          id_msg.style.color = "blue";
+          id_check.innerHTML = " ✔";
+          id_confirm_btn.style.opacity = 0.5;
+          id_confirm_btn.disabled = true;
+          id_confirm_btn.style.cursor = "default";
+          return;
+        } else {
+          id_msg.innerHTML = "이미 사용 중인 아이디입니다.";
+          id_msg.style.color = "red";
+          id_check.innerHTML = "";
+          return;
+        }
+      }).fail(function () {
+        alert("서버와 통신 중 오류가 발생했습니다.");
+      });
+    } else {
+      id_msg.innerHTML = "영어 소문자와 숫자만 사용 가능합니다.";
+      id_msg.style.color = "red";
+      return;
+    }
+
   }
 }
 
@@ -77,8 +91,8 @@ function join_confirm() {
     alert("비밀번호를 확인해주세요.");
     return;
   }
-  if (user_name.value.length < 2) {
-    alert("이름은 두 글자 이상 입력해주세요.");
+  if (user_name.value.length < 2 || user_name.value.length > 8) {
+    alert("이름은 2 ~ 8자로 입력해주세요.");
     return;
   }
 

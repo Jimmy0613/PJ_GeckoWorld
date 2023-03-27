@@ -272,7 +272,12 @@
 			<artifactId>imgscalr-lib</artifactId>
 			<version>4.2</version>
 		</dependency>
-
+		<!-- 트랜잭션 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>5.3.9</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

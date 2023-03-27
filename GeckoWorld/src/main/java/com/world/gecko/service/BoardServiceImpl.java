@@ -26,7 +26,11 @@ public class BoardServiceImpl implements BoardService {
 		mapper.newPost(post);
 	}
 
-	public List<PostVo> postList(int startIndex){
+	public List<PostVo> getResponse(int pnum) {
+		return mapper.getResponse(pnum);
+	}
+
+	public List<PostVo> postList(int startIndex) {
 		return mapper.postList(startIndex);
 	}
 

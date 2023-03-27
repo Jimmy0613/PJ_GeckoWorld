@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,24 +31,24 @@ public class UserController {
 
 	@GetMapping("/mypage")
 	public String mypage(HttpServletRequest request) {
-		if(SessionUtils.getObject(request, "LOGIN_USER")==null) {
+		if (SessionUtils.getObject(request, "LOGIN_USER") == null) {
 			return "redirect:/user/login";
 		} else {
 			return "/user/mypage";
 		}
 	}
-	
-	@GetMapping({"/login", "/join", "kakaoJoin"})
+
+	@GetMapping({ "/login", "/join", "kakaoJoin" })
 	public void getView() {
-		
+
 	}
 
 	@PostMapping("/join.do")
-	public String join_do(HttpServletRequest request, UserVo input) {
-		// 패스워드를 암호화하여 db에 넣음
-		input.setUser_pw(PwEncoder.passwordEncode(input.getUser_pw()));
-		service.addUser(input);
-		log.info("가입 성공");
+	public String join_do(HttpServletRequest request, UserVo input, Model model) {
+		if (!service.userJoin(input)) {
+			log.info("가입 실패");
+			return "redirect:/";
+		}
 		SessionUtils.setObject(request, "LOGIN_USER", input);
 		return "redirect:/";
 	}
@@ -56,7 +57,6 @@ public class UserController {
 	public String loginNormal(HttpServletRequest request, UserVo input) {
 		UserVo savedUser = service.getUserById(input.getUser_id());
 		SessionUtils.setObject(request, "LOGIN_USER", savedUser);
-		log.info("로그인 성공: " + savedUser.getUser_id());
 		return "redirect:/";
 	}
 
@@ -99,8 +99,7 @@ public class UserController {
 
 	@PostMapping("/kakaoJoin.do")
 	public String kakaoJoin_do(HttpServletRequest request, UserVo input) {
-		service.addUser(input);
-		log.info("카카오 가입 성공");
+		service.userJoin(input);
 		SessionUtils.setObject(request, "LOGIN_USER", input);
 		return "redirect:/";
 	}

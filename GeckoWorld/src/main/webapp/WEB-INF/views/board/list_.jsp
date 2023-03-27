@@ -87,7 +87,7 @@
 											<p id="postContent"></p>
 											<hr>
 											<h4>
-												댓글 comment &nbsp; <span id="commentCount"></span> <span id="responseBtn"></span>
+												댓글 comment &nbsp; <span id="commentCount"></span>
 											</h4>
 											<form>
 												<p>
@@ -98,13 +98,19 @@
 												</p>
 											</form>
 										</div>
-
+										<p id="responseMsg">
+											
+										</p>
+										<div id="responseArea">
+										
+										</div>
+	
 										<c:if test="${LOGIN_USER != null}">
 											<p>
 												<a href="/board/newpost">글쓰기</a>
 											</p>
 										</c:if>
-										<div>
+										<div id="listArea">
 											<table>
 												<thead>
 													<tr>

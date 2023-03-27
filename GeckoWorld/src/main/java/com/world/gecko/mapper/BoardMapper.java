@@ -11,6 +11,8 @@ public interface BoardMapper {
 
 	public PostVo getPostByNum(@Param("num") int num);
 
+	public List<PostVo> getResponse(@Param("pnum") int pnum);
+
 	public void newPost(PostVo post);
 
 	public List<PostVo> postList(@Param("startIndex") int startIndex);
