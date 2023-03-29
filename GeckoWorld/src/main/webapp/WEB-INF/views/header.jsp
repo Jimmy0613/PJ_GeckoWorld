@@ -20,10 +20,10 @@
 			<nav id="nav">
 				<ul>
 					<li class="current_page_item"><a href="/">홈 Home</a></li>
-					<li><a href="/board/list_">게시판 Board</a>
+					<li><a href="/board/list">게시판 Board</a>
 						<ul>
-							<li><a href="/board/list_">게시판 main</a></li>
-							<li><a href="#">게코 자랑 Photos</a></li>
+							<li><a href="/board/list">게시판 main</a></li>
+							<li><a href="/board/listPhoto">게코 자랑 Photos</a></li>
 							<li><a href="#">게코 분양 Adoption</a>
 								<ul>
 									<li><a href="#">데려가세요 with you</a></li>
