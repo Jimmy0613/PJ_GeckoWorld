@@ -1,11 +1,13 @@
 package com.world.gecko.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.world.gecko.domain.PageVo;
+import com.world.gecko.domain.PostPhotoVo;
 import com.world.gecko.domain.PostVo;
 import com.world.gecko.mapper.BoardMapper;
 
@@ -24,6 +26,10 @@ public class BoardServiceImpl implements BoardService {
 
 	public void newPost(PostVo post) {
 		mapper.newPost(post);
+	}
+	
+	public void newPostPhoto(PostPhotoVo post) {
+		mapper.newPostPhoto(post);
 	}
 
 	public List<PostVo> getResponse(int pnum) {
@@ -44,5 +50,8 @@ public class BoardServiceImpl implements BoardService {
 
 	public int latestPost() {
 		return mapper.latestPost();
+	}
+	public List<PostPhotoVo> getListPhoto(){
+		return mapper.getListPhoto();
 	}
 }

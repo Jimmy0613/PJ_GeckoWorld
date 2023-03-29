@@ -27,47 +27,9 @@
 				<div class="inner">
 					<div class="container">
 						<div class="row">
-							<div class="col-4 col-12-medium">
-								<div id="sidebar">
-									<!-- Sidebar -->
-									<section>
-										<header class="major">
-											<h2>메뉴 menu</h2>
-										</header>
-										<ul>
-											<li><h3>
-													<a href="/board/list_">게시판 main</a>
-												</h3></li>
-											<li><h3>
-													<a href="#">게코 자랑 Photos</a>
-												</h3></li>
-											<li><h3>
-													<a href="#">게코 분양 Adoption</a>
-												</h3>
-												<ul>
-													<li><h4><a href="#">》 데려가세요 with you</a></h4></li>
-													<li><h4><a href="#">》 데려올게요 with me</a></h4></li>
-													<li><h4><a href="#">》 후기 review</a></h4></li>
-												</ul></li>
-										</ul>
-									</section>
-									<section>
-										<header class="major">
-											<h2>Subheading</h2>
-										</header>
-										<p>Phasellus quam turpis, feugiat sit amet ornare in,
-											hendrerit in lectus. Praesent semper mod quis eget mi. Etiam
-											eu ante risus. Aliquam erat volutpat. Aliquam luctus et
-											mattis lectus sit amet pulvinar. Nam turpis nisi consequat
-											etiam.</p>
-										<footer>
-											<a href="#" class="button icon solid fa-info-circle">Find
-												out more</a>
-										</footer>
-									</section>
-								</div>
-							</div>
-							<div class="col-8 col-12-medium imp-medium">
+							<!-- Sidebar -->
+							<%@include file="/WEB-INF/views/board/sidebar.jsp"%>
+							<div class="col-8 col-12-medium imp-medium" style="width: 75%;">
 								<div id="content">
 									<!-- Content -->
 									<article>
@@ -75,21 +37,28 @@
 											<h2>게시판</h2>
 											<p>사담/정보/질문/답변</p>
 										</header>
+										<!-- 목록에서 제목 클릭하면 게시글 나타나는 자리 -->
 										<div id="postArea" style="display: none;">
 											<h3>
+												<!--------- --------태그 자리 --------------->
+												<!------ 제목 자리 ------>
 												<span id="tag" style="color: white;"></span><span id="title"></span>
 											</h3>
+											<!-- ----작성자, 날짜표시 자리--- -->
 											<strong id="writerDate"></strong>
 											<hr />
 											<br />
-											<%-- newline 변수 설정 --%>
+											<!----------------------- newline 변수 설정(줄바꿈) ------------------------>
 											<jsp:scriptlet>pageContext.setAttribute("newline", "\n");</jsp:scriptlet>
+											<!----- 글 내용 자리 ---->
 											<p id="postContent"></p>
 											<hr>
 											<h4>
+												<!-------- 댓글 자리-------- -->
 												댓글 comment &nbsp; <span id="commentCount"></span>
 											</h4>
-											<form>
+											<!-- 댓글 작성 폼 -->
+											<form id="addComment">
 												<p>
 													<input type="hidden" name='w_id'> <input
 														type="hidden" name='w_name'> <input name='content'
@@ -98,15 +67,14 @@
 												</p>
 											</form>
 										</div>
-										<p id="responseMsg">
-											
-										</p>
-										<div id="responseArea">
-										
-										</div>
-	
+										<!-- 답변 관련 글 자리 -->
+										<p id="responseMsg"></p>
+										<!-- 답변글 나타나는 자리 -->
+										<div id="responseArea"></div>
+
 										<c:if test="${LOGIN_USER != null}">
 											<p>
+												<!--------- 글쓰기 버튼 --------->
 												<a href="/board/newpost">글쓰기</a>
 											</p>
 										</c:if>
@@ -117,47 +85,26 @@
 														<td colspan="5"><hr style="border-color: black;" /></td>
 													</tr>
 													<tr>
-														<td>&nbsp;태그</td>
-														<td>작성자</td>
+														<td style="width: 50px;">&nbsp;태그</td>
+														<td style="width: 100px;">작성자</td>
 														<td>제목</td>
-														<td>조회</td>
-														<td>추천</td>
+														<td style="width: 50px;">조회</td>
+														<td style="width: 50px;">추천</td>
 													</tr>
 													<tr>
 														<td colspan="5"><hr style="border-color: black;"></td>
 													</tr>
 												</thead>
-												<tbody class="tbody">
-													<c:forEach var="post" items="${list}">
-														<tr style="height: 30px;">
-															<td style="color: white;"><c:if
-																	test="${post.tag eq 'I'}">
-																	&nbsp;<span style="background-color: navy">정보</span>
-																</c:if> <c:if test="${post.tag eq 'N'}">
-																	&nbsp;<span style="color: black">사담</span>
-																</c:if> <c:if test="${post.tag eq 'Q'}">
-																	&nbsp;<span style="background-color: coral">질문</span>
-																</c:if> <c:if test="${post.tag eq 'A'}">
-																	&nbsp;<span style="background-color: cornflowerblue">답변</span>
-																</c:if></td>
-															<td>${post.w_nickname}</td>
-															<td style="cursor: pointer;"
-																onclick="showPost(${post.num});">${post.title}</td>
-															<td>${post.view_count}</td>
-															<td>${post.like_count}</td>
-														</tr>
-														<tr>
-															<td colspan="5"><hr></td>
-														</tr>
-													</c:forEach>
-												</tbody>
+												<!--- 글 목록 나타나는 자리 --->
+												<tbody class="tbody"></tbody>
 											</table>
 										</div>
 										<p style="width: 100%;" id="pageArea">
 											<span id="prevPage" onclick="javascript:prevPage();"
-												style="cursor:pointer; text-align: left;"></span>
-											<span id="nextPage" onclick="javascript:nextPage();"
-												style="cursor:pointer; float: right;"><c:if test="${totalPage>1}">다음 목록 불러오기</c:if></span>
+												style="cursor: pointer; text-align: left;"></span> <span
+												id="nextPage" onclick="javascript:nextPage();"
+												style="cursor: pointer; float: right;"><c:if
+													test="${totalPage>1}">다음 목록 불러오기 》》</c:if></span>
 										</p>
 									</article>
 
@@ -179,7 +126,7 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
-	<script src="/resources/assets/js/post.js"></script>
+	<script src="/resources/assets/js/list.js"></script>
 
 </body>
 </html>

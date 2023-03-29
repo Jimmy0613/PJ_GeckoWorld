@@ -5,29 +5,44 @@
 	<select id="getPostByNum"
 		resultType="com.world.gecko.domain.PostVo" parameterType="map">
 		SELECT * from
-		post_ where num = #{num}
+		post where num = #{num}
 	</select>
 	<select id="postList" resultType="com.world.gecko.domain.PostVo"
 		parameterType="map">
-		select * from post_ where tag != 'A'
-		order by num desc limit #{startIndex}, 7
+		select * from post where tag != 'A'
+		order by num desc
+		limit #{startIndex}, 7
 	</select>
 	<select id="getPage" resultType="com.world.gecko.domain.PageVo">
-		select count(*) as count from post_
+		select count(*) as count from
+		post
 		where tag != 'A'
 	</select>
-	<select id="getResponse" resultType="com.world.gecko.domain.PostVo">
-		select * from post_ where (tag = 'A' and pnum=#{pnum})
+	<select id="getResponse"
+		resultType="com.world.gecko.domain.PostVo">
+		select * from post where (tag = 'A' and pnum=#{pnum})
 	</select>
 	<select id="latestNum" resultType="Integer">
-		select max(num) from post_
+		select max(num) from post
 	</select>
-	<insert id="newPost" parameterType="com.world.gecko.domain.PostVo">
-		INSERT into post_ (tag, w_id, w_nickname, title, content)
+	<insert id="newPost"
+		parameterType="com.world.gecko.domain.PostVo">
+		INSERT into post (tag, w_id, w_nickname, title, content)
 		values(#{tag}, #{w_id},#{w_nickname}, #{title}, #{content})
 	</insert>
 	<update id="view" parameterType="Integer">
-		update post_ set view_count = view_count + 1
-		where num = #{num} 
+		update post set view_count =
+		view_count + 1
+		where num = #{num}
 	</update>
+	<insert id="newPostPhoto"
+		parameterType="com.world.gecko.domain.PostPhotoVo">
+		insert into post_photo(w_id, w_nickname, title, content,
+		p1, p2, p3, p4, p5)
+		values(#{w_id},#{w_nickname}, #{title}, #{content},
+		#{p1},#{p2}, #{p3}, #{p4}, #{p5})
+	</insert>
+	<select id="getListPhoto" resultType="com.world.gecko.domain.PostPhotoVo">
+		select * from post_photo 
+	</select>
 </mapper>

@@ -24,33 +24,33 @@ public class UserJoinTest {
 	private UserService userService;
 
 	@Test
-	public void user_id_success() {
+	public void user_join_success() {
 		// given
-		// id 조건 만족한거
-		UserVo input1 = new UserVo("abc123","aA1~!@#$%^&*","name","normal","guest");
+		// 모든 조건 만족한거
+		UserVo input1 = new UserVo("abc123","name", "aA1~!@#$%^&*","normal","guest");
 		
 		// when
-		userService.userJoin(input1);
+		boolean join = userService.userJoin(input1);
 
 		// then
-		assertTrue(userService.userJoin(input1));
+		assertTrue(join);
 	}
 
 	@Test
 	public void user_id_fail() {
 		// given
 		// 소문자 없으면 안됨
-		UserVo input1 = new UserVo("12345", "aA1~!@#$%^&*", "name", "normal", "guest");
+		UserVo input1 = new UserVo("12345", "name", "aA1~!@#$%^&*", "normal", "guest");
 		// 숫자 없으면 안됨
-		UserVo input2 = new UserVo("abcde", "aA1~!@#$%^&*", "name", "normal", "guest");
+		UserVo input2 = new UserVo("abcde", "name", "aA1~!@#$%^&*", "normal", "guest");
 		// 대문자 있으면 안됨
-		UserVo input3 = new UserVo("abcdA", "aA1~!@#$%^&*", "name", "normal", "guest");
+		UserVo input3 = new UserVo("abcdA", "name", "aA1~!@#$%^&*", "normal", "guest");
 		// 특수문자 있으면 안됨
-		UserVo input4 = new UserVo("a1~`@.", "aA1~!@#$%^&*", "name", "normal", "guest");
+		UserVo input4 = new UserVo("a1~`@.", "name", "aA1~!@#$%^&*", "normal", "guest");
 		// 글자수 5글자 미만이면 안됨
-		UserVo input5 = new UserVo("ab12", "aA1~!@#$%^&*", "name", "normal", "guest");
+		UserVo input5 = new UserVo("ab12", "name", "aA1~!@#$%^&*", "normal", "guest");
 		// 글자수 12글자 초과면 안됨
-		UserVo input6 = new UserVo("abcdef123456", "aA1~!@#$%^&*", "name", "normal", "guest");
+		UserVo input6 = new UserVo("abcdef1234567", "name", "aA1~!@#$%^&*", "normal", "guest");
 
 		// when
 		userService.userJoin(input1);

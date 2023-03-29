@@ -21,12 +21,12 @@ function showPost(num) {
                 case "N":
                     tag.style.backgroundColor = "black";
                     tag.innerHTML = '사담';
-                    responseBtn.innerHTML = '';
+                    responseMsg.innerHTML = '';
                     break;
                 case "I":
                     tag.style.backgroundColor = "navy";
                     tag.innerHTML = '정보';
-                    responseBtn.innerHTML = '';
+                    responseMsg.innerHTML = '';
                     break;
                 case "Q":
                     tag.style.backgroundColor = "coral";
@@ -44,7 +44,7 @@ function showPost(num) {
                 case "A":
                     tag.style.backgroundColor = "cornflowerblue";
                     tag.innerHTML = '답변';
-                    responseBtn.innerHTML = '';
+                    responseMsg.innerHTML = '';
                     break;
             }
             title.innerHTML = '&nbsp;' + data.title;
@@ -65,7 +65,7 @@ function prevPage() {
         alert('첫번째 목록입니다.');
         return;
     } else {
-        movePage(currentPage - 1);
+        getList(currentPage - 1);
     }
 }
 
@@ -74,12 +74,12 @@ function nextPage() {
         alert('마지막 목록입니다.');
         return;
     } else {
-        movePage(currentPage + 1);
+        getList(currentPage + 1);
     }
 }
-function movePage(page) {
+function getList(page) {
     $(".tbody").empty();
-    let uri = '/board/movePage?currentPage=' + page;
+    let uri = '/board/getList?currentPage=' + page;
     $.ajax({
         type: "get",
         url: uri,
@@ -87,47 +87,55 @@ function movePage(page) {
         success: function (data) {
             currentPage = data.currentPage;
             totalPage = data.totalPage;
-            console.log(data.postList);
             let str = '';
-            $.each(data.postList, function (i, post) {
-                str += '<tr style="height: 30px;">';
-                switch (post.tag) {
-                    case "I":
-                        str += '<td style="color:white;"> <span style="background-color:navy;">정보</span></td>';
-                        break;
-                    case "N":
-                        str += '<td style="color:white;"> <span style="color:black;">사담</span></td>';
-                        break;
-                    case "Q":
-                        str += '<td style="color:white;"> <span style="background-color:coral;">질문</span></td>';
-                        break;
-                    case "A":
-                        str += '<td style="color:white;"> <span style="background-color:cornflowerblue;">답변</span></td>';
-                        break;
-                }
-                str += '<td>' + post.w_nickname + '</td>';
-                str += '<td style="cursor:pointer;" onclick="showPost(' + post.num + ')">' + post.title + '</td>';
-                str += '<td>' + post.view_count + '</td>';
-                str += '<td>' + post.like_count + '</td>';
+            if(data.postList.length == 0){
+                str += '<tr>';
+                str += '<td colspan="5"> 아직 글이 없습니다. </td>';
                 str += '</tr>';
-                str += '<tr><td colspan="5"><hr></td></tr>';
-            });
-            str += '<c:set var="currentPage" value="' + currentPage + '"/>';
-            str += '<c:set var="totalPage" value="' + totalPage + '"/>';
+            } else {
+                $.each(data.postList, function (i, post) {
+                    str += '<tr style="height: 30px;">';
+                    switch (post.tag) {
+                        case "I":
+                            str += '<td style="color:white;"> <span style="background-color:navy;">정보</span></td>';
+                            break;
+                        case "N":
+                            str += '<td style="color:white;"> <span style="color:black;">사담</span></td>';
+                            break;
+                        case "Q":
+                            str += '<td style="color:white;"> <span style="background-color:coral;">질문</span></td>';
+                            break;
+                        case "A":
+                            str += '<td style="color:white;"> <span style="background-color:cornflowerblue;">답변</span></td>';
+                            break;
+                    }
+                    str += '<td>' + post.w_nickname + '</td>';
+                    str += '<td style="cursor:pointer;" onclick="showPost(' + post.num + ')">' + post.title + '</td>';
+                    str += '<td>' + post.view_count + '</td>';
+                    str += '<td>' + post.like_count + '</td>';
+                    str += '</tr>';
+                    str += '<tr><td colspan="5"><hr></td></tr>';
+                });
+                str += '<c:set var="currentPage" value="' + currentPage + '"/>';
+                str += '<c:set var="totalPage" value="' + totalPage + '"/>';
+                if (currentPage == 1) {
+                    prevPageSpan.innerHTML = "";
+                } else {
+                    prevPageSpan.innerHTML = "《《 이전 목록 불러오기 ";
+                }
+                if (currentPage == totalPage) {
+                    nextPageSpan.innerHTML = "";
+                } else {
+                    nextPageSpan.innerHTML = "다음 목록 불러오기 》》";
+                }
+            }
             $('.tbody').append(str);
-            if (currentPage == 1) {
-                prevPageSpan.innerHTML = "";
-            } else {
-                prevPageSpan.innerHTML = "《《 이전 목록 불러오기 ";
-            }
-            if (currentPage == totalPage) {
-                nextPageSpan.innerHTML = "";
-            } else {
-                nextPageSpan.innerHTML = "다음 목록 불러오기 》》";
-            }
         },
         error: function () {
             console.log("리스트 불러오기 실패");
         }
     });
 }
+
+// 실행하면 바로 첫 페이지가 나오도록 함
+window.onload = getList(currentPage);

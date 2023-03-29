@@ -34,18 +34,21 @@ public class UserServiceImpl implements UserService {
 			mapper.addUser(user);
 			return true;
 		} else {
+			//id 패턴
 			Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])[a-z\\d]{5,12}$");
 			Matcher matcher = pattern.matcher(user.getUser_id());
 			if (!matcher.matches()) {
 				return false;
 			}
+			//pw 패턴
 			pattern = Pattern.compile("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z\\d~!@#$%^&*]{8,14}$");
 			matcher = pattern.matcher(user.getUser_pw());
 			if (!matcher.matches()) {
 				return false;
 			}
-			// 패스워드를 암호화하여 db에 넣음
+			// 패스워드를 암호화
 			user.setUser_pw(PwEncoder.passwordEncode(user.getUser_pw()));
+			//name 글자수 체크
 			if (user.getUser_nickname().length() >= 2 && user.getUser_nickname().length() <= 8) {
 				mapper.addUser(user);
 				return true;
