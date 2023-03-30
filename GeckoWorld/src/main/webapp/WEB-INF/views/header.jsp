@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="shortcut icon" href="/resources/assets/chevron-left-solid.svg" type="image/x-icon" />
+<link rel="icon" href="/resources/assets/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 	<header id="header">

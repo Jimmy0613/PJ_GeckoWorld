@@ -2,7 +2,6 @@ package com.world.gecko;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.exceptions.ExceptionInterceptor;
-import com.mysql.cj.jdbc.Blob;
 import com.world.gecko.domain.PageVo;
 import com.world.gecko.domain.PostPhotoVo;
 import com.world.gecko.domain.PostVo;
@@ -58,20 +55,20 @@ public class BoardController {
 	@GetMapping({ "/listPhoto" })
 	public void getListPhoto(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model) {
 		List<PostPhotoVo> photoList = service.getListPhoto();
-		for(PostPhotoVo p: photoList) {
-			if(p.getP1()!=null) {
+		for (PostPhotoVo p : photoList) {
+			if (p.getP1() != null) {
 				p.setP1Url(byteToImageUrl(p.getP1()));
 			}
-			if(p.getP2()!=null) {
+			if (p.getP2() != null) {
 				p.setP2Url(byteToImageUrl(p.getP2()));
 			}
-			if(p.getP3()!=null) {
+			if (p.getP3() != null) {
 				p.setP3Url(byteToImageUrl(p.getP3()));
 			}
-			if(p.getP4()!=null) {
+			if (p.getP4() != null) {
 				p.setP4Url(byteToImageUrl(p.getP4()));
 			}
-			if(p.getP5()!=null) {
+			if (p.getP5() != null) {
 				p.setP5Url(byteToImageUrl(p.getP5()));
 			}
 		}
@@ -97,11 +94,31 @@ public class BoardController {
 	}
 
 	@PostMapping("/newpostPhoto.do")
-	public String newpostPhoto_do(HttpServletRequest request, PostPhotoVo post, @RequestParam(value="p1", defaultValue="") String p1Path) throws Exception {
-		String filePath = "D:\\00_miji\\03_eclipse_spring\\sts-bundle\\sts-3.9.18.RELEASE\\test\\";
-		String p1FilePath = filePath + p1Path;
-		byte[] p1 = imageToByteArray(p1FilePath);
-		post.setP1(p1);
+	public String newpostPhoto_do(HttpServletRequest request, PostPhotoVo post,
+			@RequestParam(value = "url") String[] url, @RequestParam(value = "desc") String[] desc) throws Exception {
+		String resourceSrc = request.getServletContext().getRealPath("/resources");
+		String filePath = resourceSrc + "\\images\\upload\\";
+		for (int i = 0; i < url.length; i++) {
+			if (url[i].length() != 0) {
+				byte[] postByte = imageToByteArray(filePath + url[i]);
+				if (i == 0) {
+					post.setP1(postByte);
+					post.setDesc1(desc[i]);
+				} else if (i == 1) {
+					post.setP2(postByte);
+					post.setDesc2(desc[i]);
+				} else if (i == 2) {
+					post.setP3(postByte);
+					post.setDesc3(desc[i]);
+				} else if (i == 3) {
+					post.setP4(postByte);
+					post.setDesc4(desc[i]);
+				} else {
+					post.setP5(postByte);
+					post.setDesc5(desc[i]);
+				}
+			}
+		}
 		service.newPostPhoto(post);
 		return "redirect:/board/listPhoto";
 	}
@@ -111,6 +128,7 @@ public class BoardController {
 		String url = "data:application/octet-stream;base64," + base64;
 		return url;
 	}
+
 	public static byte[] imageToByteArray(String filePath) throws Exception {
 		byte[] returnValue = null;
 		ByteArrayOutputStream baos = null;

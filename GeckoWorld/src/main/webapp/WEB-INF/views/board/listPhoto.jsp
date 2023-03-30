@@ -31,31 +31,35 @@
 							<%@ include file="/WEB-INF/views/board/sidebar.jsp"%>
 							<div class="col-8 col-12-medium imp-medium" style="width: 75%;">
 								<div id="content">
-									<!-- Article list -->
-									<section class="box article-list">
-										<header>
-											<h2>게코 자랑</h2>
-											<p>우리집 게코 사진을 올려 자랑해보세요.</p>
-										</header>
-										<p>
-											<!--------- 글쓰기 버튼 --------->
-											<a href="/board/newpostPhoto">글쓰기</a>
-										</p>
-										<c:forEach var="postPhoto" items="${list}">
-											<!-- Excerpt -->
-											<article class="box excerpt">
-												<a href="#" class="image left"><img src="${postPhoto.p1Url}" style="width:200px;"/></a>
-												<div>
-													<header>
-														<span class="date">${postPhoto.pdate}</span>
-														<h3>
-															<a href="#">${postPhoto.title}</a>
-														</h3>
-													</header>
-													<p>${postPhoto.content}</p>
+									<!-- Feature 1 -->
+									<section class="container box feature1">
+										<div class="row">
+											<div class="col-12">
+												<header>
+													<h2>게코 자랑</h2>
+													<p>우리집 게코 사진을 올려 자랑해보세요.</p>
+												</header>
+												<p>
+													<!--------- 글쓰기 버튼 --------->
+													<a href="/board/newpostPhoto">글쓰기</a>
+												</p>
+											</div>
+											<c:forEach var="postPhoto" items="${list}">
+												<div class="col-4 col-12-medium">
+													<section
+														style="padding: 10px; width: 250px; height: 300px; background-color: rgb(243, 243, 240);">
+														<b>${postPhoto.pdate}</b>
+														<div style="height: 180px; width: 100%; display:grid; align-items:center; justify-content:center;">
+															<img
+																style="overflow: hidden; max-width: 230px; max-height: 180px;"
+																src="${postPhoto.p1Url}" />
+														</div>
+														<h3>${postPhoto.title}</h3>
+													</section>
 												</div>
-											</article>
-										</c:forEach>
+											</c:forEach>
+
+										</div>
 									</section>
 								</div>
 							</div>

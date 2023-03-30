@@ -26,40 +26,8 @@
 				<div class="inner">
 					<div class="container">
 						<div class="row">
-							<div class="col-4 col-12-medium">
-								<div id="sidebar">
-									<!-- Sidebar -->
-									<section>
-										<header class="major">
-											<h2>메뉴 menu</h2>
-										</header>
-										<ul class="style2">
-											<li><a href="/board/list_">게코 월드 board</a></li>
-											<li><a href="#">게코 자랑 Photos</a></li>
-											<li><a href="#">게코 분양 Adoption</a>
-												<ul>
-													<li><a href="#">데려가세요 with you</a></li>
-													<li><a href="#">데려올게요 with me</a></li>
-													<li><a href="#">후기 Review</a></li>
-												</ul></li>
-										</ul>
-									</section>
-									<section>
-										<header class="major">
-											<h2>Subheading</h2>
-										</header>
-										<p>Phasellus quam turpis, feugiat sit amet ornare in,
-											hendrerit in lectus. Praesent semper mod quis eget mi. Etiam
-											eu ante risus. Aliquam erat volutpat. Aliquam luctus et
-											mattis lectus sit amet pulvinar. Nam turpis nisi consequat
-											etiam.</p>
-										<footer>
-											<a href="#" class="button icon solid fa-info-circle">Find
-												out more</a>
-										</footer>
-									</section>
-								</div>
-							</div>
+							<!-- Sidebar -->
+							<%@ include file="/WEB-INF/views/board/sidebar.jsp"%>
 							<div class="col-8 col-12-medium imp-medium">
 								<div id="content">
 									<!-- Content -->
