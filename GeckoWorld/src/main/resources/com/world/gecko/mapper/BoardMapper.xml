@@ -38,9 +38,9 @@
 	<insert id="newPostPhoto"
 		parameterType="com.world.gecko.domain.PostPhotoVo">
 		insert into post_photo(w_id, w_nickname, title, content,
-		p1, p2, p3, p4, p5)
+		p1, p2, p3, p4, p5, desc1, desc2, desc3, desc4, desc5)
 		values(#{w_id},#{w_nickname}, #{title}, #{content},
-		#{p1},#{p2}, #{p3}, #{p4}, #{p5})
+		#{p1},#{p2}, #{p3}, #{p4}, #{p5}, #{desc1},#{desc2}, #{desc3}, #{desc4}, #{desc5})
 	</insert>
 	<select id="getListPhoto" resultType="com.world.gecko.domain.PostPhotoVo">
 		select * from post_photo 

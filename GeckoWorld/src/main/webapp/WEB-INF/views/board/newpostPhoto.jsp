@@ -10,6 +10,8 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css?version=${System.currentTimeMillis()}" />
+<link rel="shortcut icon"
+	href="/resources/assets/chevron-left-solid.svg" type="image/x-icon" />
 </head>
 <body class="left-sidebar is-preload">
 	<div id="page-wrapper">
@@ -28,7 +30,7 @@
 						<div class="row">
 							<!-- Sidebar -->
 							<%@ include file="/WEB-INF/views/board/sidebar.jsp"%>
-							<div class="col-8 col-12-medium imp-medium" style="width:75%;">
+							<div class="col-8 col-12-medium imp-medium" style="width: 75%;">
 								<div id="content">
 									<!-- Content -->
 									<article>
@@ -36,20 +38,46 @@
 											<h2>게코 자랑 글쓰기</h2>
 											<p>new post with photo</p>
 										</header>
-										<form action="/board/newpostPhoto.do" method="post">
-											<input type="hidden" name='w_id' value="${LOGIN_USER.user_id}"/>
-											<input type="hidden" name='w_nickname' value="${LOGIN_USER.user_nickname}"/>
+										<form id="postForm">
+											<input type="hidden" name='w_id'
+												value="${LOGIN_USER.user_id}" /> <input type="hidden"
+												name='w_nickname' value="${LOGIN_USER.user_nickname}" />
 											<h3>
-												제목 title<br/><br/>&nbsp;&nbsp;<input name='title' required style="width: 600px;">
+												제목 title<br /> <br />&nbsp;&nbsp;<input name='title'
+													required style="width: 80%;">
 											</h3>
-											<p style="display: flex;">
-												<input type="file" name="p1" accept="image/jpeg,image/png" value="사진 첨부">
-											</p>
-											<p>
+											<table class="writeForm" style="width: 100%;">
+												<thead style="width: 50%;" class="thead">
+													<tr class="file_">
+														<td style="width: 30%;"><input type="file" id="p_1" accept="image/*"
+															onchange="fileCommand(this.id)"></td>
+														<td style="width: 10%;">(대표)</td>
+														<td style="width: 10%;">
+															<button style="padding: 5px;" id="add_1" disabled
+																onclick="addTr(this.id, event);">추가</button>
+														</td>
+														<td style="width: 50%;"></td>
+													</tr>
+												</thead>
+											</table>
+											<div id="descBox"
+												style="display: block; width: 100%; height: auto; align-items: center; justify-content: center;">
+												<div id="descArea_1"
+													style="display: grid; width: 100%; height: 200px; grid-template-columns: 3fr 7fr;">
+													<img style="max-width: 100%; max-height: 200px;" id="img_1"
+														src="" alt=" 사진을 한장 이상 올려주세요." />
+													<textarea name="desc" spellcheck="false"
+														placeholder="무슨 사진인가요?"
+														style="min-height: 200px; resize: none;"></textarea>
+												</div>
+											</div>
+											<h4>이곳은 사진 게시판이에요. 사진이 없으면 글이 삭제될 수 있습니다.</h4>
+											<p id="contentArea">
 												<textarea name='content' spellcheck="false"
-													style="width: 700px; min-height: 500px; height: auto; resize: none;"></textarea>
+													placeholder="더 하고싶은 말이 있나요?"
+													style="width: 100%; min-height: 200px; height: auto; resize: none;"></textarea>
 											</p>
-											<input type="submit" value="글쓰기">
+											<button onclick="submitForm();">글쓰기</button>
 										</form>
 									</article>
 
@@ -63,7 +91,6 @@
 		<!-- Footer Wrapper -->
 		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
-
 	<!-- Scripts -->
 	<script src="/resources/assets/js/jquery.min.js"></script>
 	<script src="/resources/assets/js/jquery.dropotron.min.js"></script>
@@ -71,5 +98,6 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
+	<script src="/resources/assets/js/newpostPhoto.js"></script>
 </body>
 </html>

@@ -18,6 +18,12 @@ public class PostPhotoVo {
 	private byte[] p3;
 	private byte[] p4;
 	private byte[] p5;
+	private String desc1;
+	private String desc2;
+	private String desc3;
+	private String desc4;
+	private String desc5;
+	/********************/
 	private String p1Url;
 	private String p2Url;
 	private String p3Url;
