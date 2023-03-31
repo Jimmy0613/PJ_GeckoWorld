@@ -47,7 +47,7 @@
 											<c:forEach var="postPhoto" items="${list}">
 												<div class="col-4 col-12-medium">
 													<section
-														style="padding: 10px; width: 250px; height: 300px; border:solid 1px lightgray">
+														style="padding: 10px; width: 250px; height: 300px; background-color: rgb(243, 243, 240);">
 														<b>${postPhoto.pdate}</b>
 														<div style="height: 180px; width: 100%; display:grid; align-items:center; justify-content:center;">
 															<img

@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.world.gecko.domain.PageVo;
+import com.world.gecko.domain.Post;
 import com.world.gecko.domain.PostPhotoVo;
 import com.world.gecko.domain.PostVo;
 import com.world.gecko.service.BoardService;
+import com.world.gecko.service.PostService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -32,6 +34,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 
 	private BoardService service;
+	private PostService service2;
 
 	@GetMapping({ "/list", "/newpostPhoto" })
 	public void getView() {
@@ -41,14 +44,9 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> newList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			Model model) {
-		int startIndex = (currentPage - 1) * PageVo.PER_PAGE_POST;
-		List<PostVo> postList = service.postList(startIndex);
-		PageVo pvo = service.getPage();
-		int totalPage = pvo.getTotalPage();
-		Map<String, Object> result = new HashMap<>();
+//		int startIndex = (currentPage - 1) * PageVo.PER_PAGE_POST;
+		Map<String, Object> result = service2.getList(currentPage);
 		result.put("currentPage", currentPage);
-		result.put("totalPage", totalPage);
-		result.put("postList", postList);
 		return result;
 	}
 
@@ -77,9 +75,9 @@ public class BoardController {
 
 	@GetMapping("/getPost")
 	@ResponseBody
-	public PostVo getPost(@RequestParam(value = "num") int num) {
+	public Post getPost(@RequestParam(value = "num") int num) {
 		service.view(num);
-		return service.getPostByNum(num);
+		return service2.getPost(num);
 	}
 
 	@GetMapping("/newpost")
@@ -88,8 +86,9 @@ public class BoardController {
 	}
 
 	@PostMapping("/newpost.do")
-	public String newpost_do(PostVo post) {
-		service.newPost(post);
+	public String newpost_do(Post post) {
+		service2.newPost(post);
+//		service.newPost(post);
 		return "redirect:/board/list";
 	}
 
