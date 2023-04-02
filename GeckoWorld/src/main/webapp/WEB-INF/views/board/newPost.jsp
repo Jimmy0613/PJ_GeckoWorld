@@ -36,32 +36,28 @@
 											<h2>글쓰기</h2>
 											<p>new post</p>
 										</header>
-										<form action="/board/newpost.do" method="post">
-											<input type="hidden" name='w_id' value="${LOGIN_USER.user_id}"/>
-											<input type="hidden" name='w_nickname' value="${LOGIN_USER.user_nickname}"/>
+										<form action="/board/newPost.do" method="post">
+											<input type="hidden" name='w_id' value="${LOGIN_USER.id}" />
+											<input type="hidden" name='w_nickname'
+												value="${LOGIN_USER.nickname}" />
 											<h3>
-												제목 title<br/><br/>&nbsp;&nbsp;<input name='title' required style="width: 600px;">
+												<select name='tag'
+													style="width: 200px; font-weight: bolder; color: navy;">
+													<option value="N">&nbsp;사담 SMALL TALK</option>
+													<option value="Q">&nbsp;질문 QUESTION</option>
+													<option value="I">&nbsp;정보 INFORMATION</option>
+												</select> <br /> <strong>제목 title</strong> <br />
+												<br />&nbsp;&nbsp;<input name='title' required
+													style="width: 600px;">
 											</h3>
-											<p style="display: flex;">
-												<c:if test="${tag eq 'A'}">
-													<select name='tag' style="width: 70px; font-weight: bolder; color: navy;">
-														<option value="A">&nbsp;답변</option>
-													</select>
-												</c:if>
-												<c:if test="${tag ne 'A'}">
-													<select name='tag'
-														style="width: 100px; font-weight: bolder; color: navy;">
-														<option value="N">&nbsp;사담&nbsp;</option>
-														<option value="Q">&nbsp;질문&nbsp;</option>
-														<option value="I">&nbsp;정보&nbsp;</option>
-													</select>
-												</c:if>
-											</p>
+
 											<p>
 												<textarea name='content' spellcheck="false"
 													style="width: 700px; min-height: 500px; height: auto; resize: none;"></textarea>
 											</p>
-											<input type="submit" value="글쓰기">
+											<input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+												type="button" value="취소"
+												onclick="location.href='/board/list'">
 										</form>
 									</article>
 

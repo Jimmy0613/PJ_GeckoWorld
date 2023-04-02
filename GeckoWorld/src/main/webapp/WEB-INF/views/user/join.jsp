@@ -79,7 +79,7 @@
 												</tr>
 												<tr>
 													<td>* 아이디 <span style="color:green;" id="id_check"></span></td>
-													<td style="width: 300px;"><input id="id" onchange="id_onchange();" type="text" name='user_id'
+													<td style="width: 300px;"><input id="id" onchange="id_onchange();" type="text" name='id'
 														placeholder="아이디 입력 (5 ~ 12자)" value="" required style="width: 250px;"></td>
 													<td colspan="3"><input type="button" id="id_confirm_btn"
 														value="중복 확인" onclick="id_confirm();"></td>
@@ -92,7 +92,7 @@
 												</tr>
 												<tr>
 													<td>* 비밀번호 <span style="color:green;" id="pw_check1"></span></td>
-													<td colspan="4"><input id="pw1" type="password" name='user_pw' placeholder="비밀번호 입력 (8 ~ 14자)" 
+													<td colspan="4"><input id="pw1" type="password" name='pw' placeholder="비밀번호 입력 (8 ~ 14자)" 
 														value="" required style="width: 250px;" onchange="pw_onchange();"></td>
 												</tr>
 												<tr>
@@ -108,15 +108,15 @@
 												</tr>
 												<tr>
 													<td>* 별명 <span style="color:green;" id="name_check"></span></td>
-													<td colspan="4"><input id="user_name" type="text" name='user_nickname'
+													<td colspan="4"><input id="user_name" type="text" name='nickname'
 														placeholder="2 ~ 8자" value="" required maxlength="8" style="width: 250px;"></td>
 												</tr>
 												<tr></tr>
 												<tr>
 													<td style="width: 125px;"></td>
 													<td colspan="4">
-													<input type="hidden" name='login_type' value="normal"> 
-													<input type="hidden" name='user_role' value="guest">
+													<input type="hidden" name='type' value="normal"> 
+													<input type="hidden" name='role' value="guest">
 													<input id="form_join_btn" type="button" value="회원가입" onclick="join_confirm();">
 													</td>
 												</tr>

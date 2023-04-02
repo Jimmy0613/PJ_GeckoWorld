@@ -71,12 +71,12 @@
 												<tr>
 													<td>아이디</td>
 													<td colspan="2"><input style="width: 250px;" id="id"
-														type="text" name='user_id'></td>
+														type="text" name='id'></td>
 												</tr>
 												<tr>
 													<td>비밀번호</td>
 													<td colspan="2"><input style="width: 250px;" id="pw"
-														type="password" name='user_pw'></td>
+														type="password" name='pw'></td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>

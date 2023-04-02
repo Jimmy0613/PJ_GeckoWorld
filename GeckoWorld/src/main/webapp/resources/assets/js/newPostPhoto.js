@@ -114,7 +114,7 @@ function submitForm() {
             addFileToForm(fileName, form);
         }
     }
-    form.action = '/board/newpostPhoto.do';
+    form.action = '/board/newPostPhoto.do';
     form.method = 'POST';
 
 }

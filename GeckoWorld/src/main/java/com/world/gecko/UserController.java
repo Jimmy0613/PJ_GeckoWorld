@@ -1,6 +1,7 @@
 package com.world.gecko;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.world.gecko.api.KakaoApi;
-import com.world.gecko.domain.UserVo;
+import com.world.gecko.domain.User;
 import com.world.gecko.service.UserService;
 import com.world.gecko.util.PwEncoder;
 import com.world.gecko.util.SessionUtils;
@@ -26,8 +27,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class UserController {
 
-	private UserService service;
 	private KakaoApi kakao;
+	private UserService service;
 
 	@GetMapping("/mypage")
 	public String mypage(HttpServletRequest request) {
@@ -44,18 +45,15 @@ public class UserController {
 	}
 
 	@PostMapping("/join.do")
-	public String join_do(HttpServletRequest request, UserVo input, Model model) {
-		if (!service.userJoin(input)) {
-			log.info("가입 실패");
-			return "redirect:/";
-		}
+	public String join_do(HttpServletRequest request, User input, Model model) {
+		service.userJoin(input);
 		SessionUtils.setObject(request, "LOGIN_USER", input);
 		return "redirect:/";
 	}
 
 	@GetMapping("/login.do")
-	public String loginNormal(HttpServletRequest request, UserVo input) {
-		UserVo savedUser = service.getUserById(input.getUser_id());
+	public String loginNormal(HttpServletRequest request, User input) {
+		User savedUser = service.getUserById(input.getId());
 		SessionUtils.setObject(request, "LOGIN_USER", savedUser);
 		return "redirect:/";
 	}
@@ -82,23 +80,23 @@ public class UserController {
 		String access_Token = kakao.getAccessToken(code);
 		SessionUtils.setObject(request, "access_Token", access_Token);
 		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-		UserVo user = new UserVo();
-		user.setUser_id((String) userInfo.get("id"));
-		UserVo savedUser = service.getUserById(user.getUser_id());
-		if (savedUser != null) {
-			SessionUtils.setObject(request, "LOGIN_USER", savedUser);
+		Optional<User> user = Optional.ofNullable(service.getUserById((String) userInfo.get("id")));
+		if (user.isPresent()) {
+			SessionUtils.setObject(request, "LOGIN_USER", user.get());
 			return "redirect:/";
 		} else {
-			user.setUser_nickname((String) userInfo.get("nickname"));
+			User kakaoUser = new User();
+			kakaoUser.setId((String) userInfo.get("id"));
+			kakaoUser.setNickname((String) userInfo.get("nickname"));
 			// 카카오 유저의 경우 access_Token을 암호화해서 비밀번호로 db에 삽입하여 id만으로 로그인이 되는 것을 방지
-			user.setUser_pw(PwEncoder.passwordEncode(access_Token));
-			SessionUtils.setObject(request, "KAKAO_LOGIN", user);
+			kakaoUser.setPw(PwEncoder.passwordEncode(access_Token));
+			SessionUtils.setObject(request, "KAKAO_LOGIN", kakaoUser);
 			return "redirect:/user/kakaoJoin";
 		}
 	}
 
 	@PostMapping("/kakaoJoin.do")
-	public String kakaoJoin_do(HttpServletRequest request, UserVo input) {
+	public String kakaoJoin_do(HttpServletRequest request, User input) {
 		service.userJoin(input);
 		SessionUtils.setObject(request, "LOGIN_USER", input);
 		return "redirect:/";

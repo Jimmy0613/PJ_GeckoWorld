@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.world.gecko.domain.PageVo;
 import com.world.gecko.domain.Post;
 import com.world.gecko.repository.PostRepository;
 
@@ -20,25 +19,30 @@ public class PostService {
 	@Autowired
 	private PostRepository repo;
 
-	public Post getPost(int num) {
-		Post post = repo.findByNum(num);
+	public Post getPostByPnum(int pnum) {
+		Post post = repo.findByPnum(pnum);
+		post.setView_count(post.getView_count() + 1);
+		repo.save(post);
 		return post;
 	}
 
 	public void newPost(Post post) {
+		if(post.getPnum()!=0) {
+			Post qPost = repo.findByPnum(post.getPnum());
+			qPost.setResponse_count(qPost.getResponse_count()+1);
+			repo.save(qPost);
+		}
 		repo.save(post);
 	}
 
 	public Map<String, Object> getList(int currentPage) {
 		Map<String, Object> map = new HashMap<>();
-		PageRequest pr = PageRequest.of(currentPage - 1, 7, Sort.by(Sort.Direction.DESC, "num"));
+		PageRequest pr = PageRequest.of(currentPage - 1, 7, Sort.by(Sort.Direction.DESC, "pnum"));
 		Page<Post> page = repo.findAll(pr);
-		int number = page.getNumber(); //0부터 시작
-		int totalPage = page.getTotalPages();
 		List<Post> list = page.getContent();
+		int totalPage = page.getTotalPages();
 		map.put("postList", list);
 		map.put("totalPage", totalPage);
 		return map;
 	}
 }
-

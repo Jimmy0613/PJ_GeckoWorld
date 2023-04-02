@@ -39,10 +39,10 @@
 											<li><a href="#">쪽지함</a></li>
 											<li><a href="#">게시판</a></li>
 											<li><a href="#">알 사용 내역</a></li>
-											<c:if test="${LOGIN_USER.login_type eq 'normal'}">
+											<c:if test="${LOGIN_USER.type eq 'normal'}">
 												<li><a href="/user/logout">로그아웃</a></li>
 											</c:if>
-											<c:if test="${LOGIN_USER.login_type eq 'kakao'}">
+											<c:if test="${LOGIN_USER.type eq 'kakao'}">
 												<li><a href="/user/kakaoLogout">로그아웃</a></li>
 											</c:if>
 											<li><a href="#">계정관리</a></li>
@@ -72,7 +72,7 @@
 											<h2>회원 정보</h2>
 											<p>my page</p>
 										</header>
-										로그인 유저: ${LOGIN_USER.user_id}
+										로그인 유저: ${LOGIN_USER.id}
 									</article>
 
 								</div>

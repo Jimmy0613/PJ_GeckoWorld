@@ -47,7 +47,7 @@ function id_confirm() {
   } else {
     const idPattern = /^(?=.*\d)(?=.*[a-z])[a-z\d]{5,12}$/;
     if (idPattern.test(id.value)) {
-      let uri = encodeURI("/user/id_confirm?user_id=" + id.value);
+      let uri = encodeURI("/user/id_confirm?id=" + id.value);
       $.get(uri, function (data) {
         console.log(data);
         if (data === false) {

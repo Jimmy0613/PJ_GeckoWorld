@@ -83,18 +83,18 @@
 												<tr></tr>
 												<tr>
 													<td>* 별명</td>
-													<td><input style="width:250px;"id="user_name" type="text" name='user_nickname'
-														value="${KAKAO_LOGIN.user_nickname}" required maxlength="6"></td>
+													<td><input style="width:250px;"id="user_name" type="text" name='nickname'
+														value="${KAKAO_LOGIN.nickname}" required maxlength="6"></td>
 												</tr>
 												<tr>
 													<td><input
-														type="hidden" name='login_type'
+														type="hidden" name='type'
 														value="kakao"><input
-														type="hidden" name='user_id'
-														value="${KAKAO_LOGIN.user_id}"><input
-														type="hidden" name='user_pw'
-														value="${KAKAO_LOGIN.user_pw}"><input
-														type="hidden" name='user_role'
+														type="hidden" name='id'
+														value="${KAKAO_LOGIN.id}"><input
+														type="hidden" name='pw'
+														value="${KAKAO_LOGIN.pw}"><input
+														type="hidden" name='role'
 														value="guest"><br/><input
 														id="form_kakao_join_btn" type="button" value="회원가입"></td>
 												</tr>

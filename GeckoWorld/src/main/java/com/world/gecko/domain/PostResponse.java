@@ -20,17 +20,17 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "post")
-public class Post { // 게시글 테이블
+@Table(name = "post_response")
+public class PostResponse { // 게시글 테이블
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "pnum")
+	@Column(name = "rnum")
+	@Expose
+	private int rnum;
+
+	@Column(name = "pnum", nullable = false)
 	@Expose
 	private int pnum;
-
-	@Column(name = "tag", nullable = false)
-	@Expose
-	private String tag;
 
 	@Column(name = "w_id", nullable = false)
 	@Expose
@@ -40,30 +40,18 @@ public class Post { // 게시글 테이블
 	@Expose
 	private String w_nickname;
 
-	@Column(name = "title", nullable = false)
-	@Expose
-	private String title;
-
 	@Column(name = "content", nullable = false)
 	@Expose
 	private String content;
 
-	@Column(name = "view_count")
+	@Column(name = "like_count")
 	@Expose
-	private int view_count;
+	private int like_count;
 
-	@Column(name = "comment_count")
-	@Expose
-	private int comment_count;
-
-	@Column(name = "response_count")
-	@Expose
-	private int response_count;
-
-	@Column(name = "pdate", insertable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "rdate", insertable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
 	@Expose
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	private Date pdate;
+	private Date rdate;
 }

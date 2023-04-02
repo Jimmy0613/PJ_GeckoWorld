@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="col-4 col-12-medium" style="width: 25%;">
+	<div class="col-4 col-12-medium">
 		<div id="sidebar">
 			<section>
 				<header class="major">

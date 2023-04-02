@@ -2,7 +2,7 @@
 $(function () {
     $("#norm_login_btn").click(function () {
         var id = $("#id").val();
-        var uri = encodeURI(`/user/id_confirm?user_id=${id}`);
+        var uri = encodeURI(`/user/id_confirm?id=${id}`);
         $.get(uri, function (data) {
             if (data === false) {
                 $("#confirm").text("가입 정보가 없는 아이디입니다.");
@@ -11,7 +11,7 @@ $(function () {
             }
         })
         var pw = $("#pw").val();
-        uri = encodeURI(`/user/pw_confirm?user_id=${id}&user_pw=${pw}`);
+        uri = encodeURI(`/user/pw_confirm?id=${id}&pw=${pw}`);
         $.get(uri, function (data) {
             if (data === true) {
                 $("#form_norm_login").submit();

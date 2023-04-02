@@ -30,7 +30,7 @@
 						<div class="row">
 							<!-- Sidebar -->
 							<%@ include file="/WEB-INF/views/board/sidebar.jsp"%>
-							<div class="col-8 col-12-medium imp-medium" style="width: 75%;">
+							<div class="col-8 col-12-medium imp-medium">
 								<div id="content">
 									<!-- Content -->
 									<article>
@@ -40,8 +40,8 @@
 										</header>
 										<form id="postForm">
 											<input type="hidden" name='w_id'
-												value="${LOGIN_USER.user_id}" /> <input type="hidden"
-												name='w_nickname' value="${LOGIN_USER.user_nickname}" />
+												value="${LOGIN_USER.id}" /> <input type="hidden"
+												name='w_nickname' value="${LOGIN_USER.nickname}" />
 											<h3>
 												제목 title<br /> <br />&nbsp;&nbsp;<input name='title'
 													required style="width: 80%;">
@@ -61,7 +61,7 @@
 												</thead>
 											</table>
 											<div id="descBox"
-												style="display: block; width: 100%; height: auto; align-items: center; justify-content: center;">
+												style="display: block; width: 98%; height: auto; align-items: center; justify-content: center;">
 												<div id="descArea_1"
 													style="display: grid; width: 100%; height: 200px; grid-template-columns: 3fr 7fr;">
 													<img style="max-width: 100%; max-height: 200px;" id="img_1"
@@ -98,6 +98,6 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
-	<script src="/resources/assets/js/newpostPhoto.js"></script>
+	<script src="/resources/assets/js/newPostPhoto.js"></script>
 </body>
 </html>

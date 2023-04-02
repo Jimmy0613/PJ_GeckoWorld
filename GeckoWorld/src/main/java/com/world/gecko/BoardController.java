@@ -1,14 +1,11 @@
 package com.world.gecko;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.world.gecko.domain.PageVo;
+import com.world.gecko.domain.Comment;
+import com.world.gecko.domain.CommentPhoto;
 import com.world.gecko.domain.Post;
-import com.world.gecko.domain.PostPhotoVo;
-import com.world.gecko.domain.PostVo;
-import com.world.gecko.service.BoardService;
+import com.world.gecko.domain.PostPhoto;
+import com.world.gecko.domain.PostResponse;
+import com.world.gecko.service.CommentPhotoService;
+import com.world.gecko.service.CommentService;
+import com.world.gecko.service.PostPhotoService;
+import com.world.gecko.service.PostResponseService;
 import com.world.gecko.service.PostService;
 
 import lombok.AllArgsConstructor;
@@ -33,128 +34,113 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/board/*")
 public class BoardController {
 
-	private BoardService service;
-	private PostService service2;
+	@Autowired
+	private PostService service;
 
-	@GetMapping({ "/list", "/newpostPhoto" })
-	public void getView() {
+	@Autowired
+	private PostPhotoService servicePhoto;
+
+	@Autowired
+	private CommentService serviceComment;
+	
+	@Autowired
+	private CommentPhotoService serviceCommentPhoto;
+
+	@Autowired
+	private PostResponseService serviceResponse;
+	
+	@GetMapping({ "/newPostPhoto", "/list" })
+	public void getView(@RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model) {
+		model.addAttribute("currentPage", currentPage);
 	}
 
 	@GetMapping("/getList")
 	@ResponseBody
 	public Map<String, Object> newList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			Model model) {
-//		int startIndex = (currentPage - 1) * PageVo.PER_PAGE_POST;
-		Map<String, Object> result = service2.getList(currentPage);
+		Map<String, Object> result = service.getList(currentPage);
 		result.put("currentPage", currentPage);
 		return result;
 	}
 
 	@GetMapping({ "/listPhoto" })
 	public void getListPhoto(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model) {
-		List<PostPhotoVo> photoList = service.getListPhoto();
-		for (PostPhotoVo p : photoList) {
-			if (p.getP1() != null) {
-				p.setP1Url(byteToImageUrl(p.getP1()));
-			}
-			if (p.getP2() != null) {
-				p.setP2Url(byteToImageUrl(p.getP2()));
-			}
-			if (p.getP3() != null) {
-				p.setP3Url(byteToImageUrl(p.getP3()));
-			}
-			if (p.getP4() != null) {
-				p.setP4Url(byteToImageUrl(p.getP4()));
-			}
-			if (p.getP5() != null) {
-				p.setP5Url(byteToImageUrl(p.getP5()));
-			}
-		}
-		model.addAttribute("list", photoList);
+		Map<String, Object> map = servicePhoto.getList(currentPage);
+		model.addAttribute("list", (List<PostPhoto>) map.get("list"));
+		model.addAttribute("thumnailList", (Map<Integer, String>) map.get("thumnailList"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPage", map.get("totalPage"));
 	}
 
-	@GetMapping("/getPost")
+	@GetMapping("/post")
+	public void getPost(@RequestParam(value = "pnum") int pnum,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model) {
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("post", service.getPostByPnum(pnum));
+		model.addAttribute("comment", serviceComment.getList(pnum));
+	}
+
+	@GetMapping("/postPhoto")
+	public void getPostPhoto(@RequestParam(value="num") int num, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model) {
+		Map<String, Object> map = servicePhoto.getPost(num);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("post", (PostPhoto)map.get("post"));
+		model.addAttribute("urlList", (List<String>)map.get("urlList"));
+		model.addAttribute("comment", (List<CommentPhoto>)serviceCommentPhoto.getList(num));
+	}
+	
+	@GetMapping("/getResponse")
 	@ResponseBody
-	public Post getPost(@RequestParam(value = "num") int num) {
-		service.view(num);
-		return service2.getPost(num);
+	public List<PostResponse> getResponse(@RequestParam(value="pnum") int pnum){
+		return serviceResponse.findListByPnum(pnum);
+	}
+	
+	@GetMapping("/like")
+	@ResponseBody
+	public void like(@RequestParam(value="rnum") int rnum) {
+		serviceResponse.like(rnum);
+	}
+	
+	@GetMapping("/newPost")
+	public void newpost() {
 	}
 
-	@GetMapping("/newpost")
-	public void newpost(@RequestParam(value = "tag", defaultValue = "N") String tag, Model model) {
-		model.addAttribute("tag", tag);
+	@GetMapping("/newResponse")
+	public void newResponse(@RequestParam(value="pnum")int pnum, @RequestParam(value="ptitle") String ptitle, Model model) {
+		model.addAttribute("pnum", pnum);
+		model.addAttribute("ptitle", ptitle);
+	}
+	
+	@GetMapping("/newComment")
+	public String newComment(Comment comment, @RequestParam(value = "pnum") int pnum,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+		serviceComment.newComment(comment);
+		return "redirect:/board/post?currentPage=" + currentPage + "&pnum=" + pnum;
+	}
+	
+	@GetMapping("/newCommentPhoto")
+	public String newCommentPhoto(CommentPhoto comment, @RequestParam(value = "num") int num,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+		serviceCommentPhoto.newCommentPhoto(comment);
+		return "redirect:/board/postPhoto?currentPage=" + currentPage + "&num=" + num;
 	}
 
-	@PostMapping("/newpost.do")
+	@PostMapping("/newPost.do")
 	public String newpost_do(Post post) {
-		service2.newPost(post);
-//		service.newPost(post);
+		service.newPost(post);
 		return "redirect:/board/list";
 	}
 
-	@PostMapping("/newpostPhoto.do")
-	public String newpostPhoto_do(HttpServletRequest request, PostPhotoVo post,
-			@RequestParam(value = "url") String[] url, @RequestParam(value = "desc") String[] desc) throws Exception {
-		String resourceSrc = request.getServletContext().getRealPath("/resources");
-		String filePath = resourceSrc + "\\images\\upload\\";
-		for (int i = 0; i < url.length; i++) {
-			if (url[i].length() != 0) {
-				byte[] postByte = imageToByteArray(filePath + url[i]);
-				if (i == 0) {
-					post.setP1(postByte);
-					post.setDesc1(desc[i]);
-				} else if (i == 1) {
-					post.setP2(postByte);
-					post.setDesc2(desc[i]);
-				} else if (i == 2) {
-					post.setP3(postByte);
-					post.setDesc3(desc[i]);
-				} else if (i == 3) {
-					post.setP4(postByte);
-					post.setDesc4(desc[i]);
-				} else {
-					post.setP5(postByte);
-					post.setDesc5(desc[i]);
-				}
-			}
-		}
-		service.newPostPhoto(post);
+	@PostMapping("/newResponse.do")
+	public String newResponse_do(PostResponse response) {
+		serviceResponse.newResponse(response);
+		return "redirect:/board/post?pnum=" + response.getPnum();
+	}
+	@PostMapping("/newPostPhoto.do")
+	public String newpostPhoto_do(HttpServletRequest request, PostPhoto post, @RequestParam(value = "url") String[] url,
+			@RequestParam(value = "desc") String[] desc) throws Exception {
+		servicePhoto.newPostPhoto(post, url, desc, request);
 		return "redirect:/board/listPhoto";
 	}
 
-	public String byteToImageUrl(byte[] byteData) {
-		String base64 = Base64.getEncoder().encodeToString(byteData);
-		String url = "data:application/octet-stream;base64," + base64;
-		return url;
-	}
-
-	public static byte[] imageToByteArray(String filePath) throws Exception {
-		byte[] returnValue = null;
-		ByteArrayOutputStream baos = null;
-		FileInputStream fis = null;
-
-		try {
-			baos = new ByteArrayOutputStream();
-			fis = new FileInputStream(filePath);
-
-			byte[] buf = new byte[1024];
-			int read = 0;
-
-			while ((read = fis.read(buf, 0, buf.length)) != -1) {
-				baos.write(buf, 0, read);
-			}
-
-			returnValue = baos.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (baos != null) {
-				baos.close();
-			}
-			if (fis != null) {
-				fis.close();
-			}
-		}
-		return returnValue;
-	}
 }
