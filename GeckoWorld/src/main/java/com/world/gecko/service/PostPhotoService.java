@@ -31,7 +31,7 @@ public class PostPhotoService {
 			throws Exception {
 		String resourceSrc = request.getServletContext().getRealPath("/resources");
 		String filePath = resourceSrc + "\\images\\upload\\";
-		for (int i = 0; i < url.length; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (url[i].length() != 0) {
 				byte[] postByte = ImageUtils.imageToByteArray(filePath + url[i]);
 				if (i == 0) {

@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>ZeroFour by HTML5 UP</title>
+<title>GECKO WORLD</title>
 <meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -21,17 +21,148 @@
 			<div class="container">
 
 				<!-- Header -->
-				<%@include file="/WEB-INF/views/header.jsp"%>
+				<header id="header">
+					<div class="inner">
 
+						<!-- Logo -->
+						<h1>
+							<a href="/" id="logo">게코월드 GeckoWorld</a>
+						</h1>
+
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="current_page_item"><a href="/">홈 Home</a></li>
+								<li><a href="/board/list">게시판 Board</a>
+									<ul>
+										<li><a href="/board/list">게시판 main</a></li>
+										<li><a href="/board/listPhoto">게코 자랑 Photos</a></li>
+									</ul>
+								<li><a href="#">공간 대여 space rental</a></li>
+								<c:choose>
+									<c:when test="${LOGIN_USER != null}">
+										<li><a href="/user/mypage">회원 정보 mypage</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="/user/login">로그인 sign in</a></li>
+									</c:otherwise>
+								</c:choose>
+
+							</ul>
+						</nav>
+
+					</div>
+				</header>
 				<!-- Banner -->
-				<div id="banner">
-				</div>
+				<div id="banner"></div>
+
 			</div>
 		</div>
 
 		<!-- Main Wrapper -->
 		<div id="main-wrapper">
 			<div class="wrapper style1">
+				<div class="inner">
+					<!-- Feature 2 -->
+					<section class="container box feature1">
+						<header class="major">
+							<h2>공간 대여 서비스 빠른 예약</h2>
+							<p>space rental service Fast Reservation</p>
+						</header>
+						<div class="row">
+							<div class="col-6 col-12-medium">
+								<section>
+									<h3>일정 선택</h3>
+									<p>Schedule selection</p>
+									<table class="fastReserv">
+										<thead>
+											<tr style="height: 30px; font-size: 1.3em;">
+												<td colspan="3"><span><strong>날짜</strong>&nbsp;&nbsp;&nbsp;<input
+														id="choosedDate" name='book_date' value=""
+														style="width: 120px; text-align: center;" readonly>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>시간</strong>&nbsp;&nbsp;&nbsp;<select
+														style="width: 120px; text-align: center;" id="timeSelect"
+														name='hour' onchange="search();">
+															<option value="0" selected hidden>선택</option>
+															<option value="1">1시간</option>
+															<option value="2">2시간</option>
+															<option value="3">3시간</option>
+													</select></span></td>
+											</tr>
+											<tr style="height: 30px;">
+												<td></td>
+											</tr>
+										</thead>
+										<tbody class="result"
+											style="color: black; display: none; border: 1px solid black;">
+											<tr>
+												<td colspan="3"><h4>예약 시간을 선택해주세요.</h4></td>
+											</tr>
+											<tr
+												style="cursor:pointer; height: 40px; background-color: #f2f7ff; font-weight: bolder;">
+												<td id="time9">09:00</td>
+												<td id="time10">10:00</td>
+												<td id="time11">11:00</td>
+											</tr>
+											<tr
+												style="cursor:pointer; height: 40px; background-color: #f2f7ff; font-weight: bolder;">
+												<td id="time12">12:00</td>
+												<td id="time13">13:00</td>
+												<td id="time14">14:00</td>
+											</tr>
+											<tr
+												style="cursor:pointer; height: 40px; background-color: #f2f7ff; font-weight: bolder;">
+												<td id="time15">15:00</td>
+												<td id="time16">16:00</td>
+												<td id="time17">17:00</td>
+											</tr>
+											<tr
+												style="cursor:pointer; height: 40px; background-color: #f2f7ff; font-weight: bolder;">
+												<td id="time18">18:00</td>
+												<td id="time19">19:00</td>
+												<td id="time20">20:00</td>
+											</tr>
+										</tbody>
+									</table>
+									<footer>
+										<a href="#"
+											class="button medium icon solid fa-arrow-circle-right">예약하기
+											book</a>
+									</footer>
+								</section>
+							</div>
+							<div class="col-6 col-12-medium">
+								<section>
+									<h3>날짜를 선택해주세요</h3>
+									<p>Please Choose a Date</p>
+									<table class="calendar">
+										<thead>
+											<tr>
+												<td id="prev" onclick="prev();">&#60;</td>
+												<td id="yearMonth" colspan="5"><span id="calYear"></span>년
+													<span id="calMonth"></span>월</td>
+												<td id="next" onclick="next();">&#62;</td>
+											</tr>
+											<tr id="week" style="border-bottom: 1px solid #ffedcc">
+												<td style="color: red;">일</td>
+												<td>월</td>
+												<td>화</td>
+												<td>수</td>
+												<td>목</td>
+												<td>금</td>
+												<td style="color: blue;">토</td>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</section>
+							</div>
+						</div>
+					</section>
+
+				</div>
+			</div>
+			<div class="wrapper style2">
 				<div class="inner">
 
 					<!-- Feature 1 -->
@@ -69,12 +200,12 @@
 										src="/resources/images/room_cre.jpg" /></a>
 									<header>
 										<h3>크레 room cre</h3>
-										<p>최대 6인 수용, 화이트보드 지원</p>
+										<p>최대 4인 수용, 화이트보드 지원</p>
 									</header>
 								</section>
 							</div>
 							<div class="col-12">
-								<p>아래의 빠른 예약 서비스에서 바로 날짜 선택 후 예약이 가능합니다. 복수 예약은 공간 대여 메뉴에서 할
+								<p>위쪽의 빠른 예약 서비스에서 바로 날짜 선택 후 예약이 가능합니다. 복수 예약은 공간 대여 메뉴에서 할
 									수 있습니다.</p>
 							</div>
 						</div>
@@ -82,149 +213,8 @@
 
 				</div>
 			</div>
-			<div class="wrapper style2">
-				<div class="inner">
 
-					<!-- Feature 2 -->
-					<section class="container box feature2">
-						<div class="row">
-							<div class="col-6 col-12-medium">
-								<section>
-									<header class="major">
-										<h2>공간 대여 서비스 빠른 예약</h2>
-										<p>space rental service Fast Reservation</p>
-									</header>
-									<%@include file="/WEB-INF/views/fastReserv.jsp"%>
-									<footer>
-										<a href="#"
-											class="button medium icon solid fa-arrow-circle-right">예약하기
-											book</a>
-									</footer>
-								</section>
-							</div>
-							<div class="col-6 col-12-medium">
-								<section>
-									<header class="major">
-										<h2>날짜를 선택해주세요</h2>
-										<p>Please Choose a Date</p>
-									</header>
-									<div id="calendar">
-										<div id="box"
-											style="min-height: 390px; width: 350px; background-color: rgba(255, 255, 255, 0.7);">
-											<%@include file="/WEB-INF/views/calendar.jsp"%>
-										</div>
-									</div>
-								</section>
-							</div>
-						</div>
-					</section>
 
-				</div>
-			</div>
-			<div class="wrapper style3">
-				<div class="inner">
-					<div class="container">
-						<div class="row">
-							<div class="col-8 col-12-medium">
-
-								<!-- Article list -->
-								<section class="box article-list">
-									<h2 class="icon fa-file-alt">최신글 Recent Posts</h2>
-
-									<!-- Excerpt -->
-									<article class="box excerpt">
-										<a href="#" class="image left"><img
-											src="/resources/images/pic04.jpg" alt="" /></a>
-										<div>
-											<header>
-												<span class="date">July 24</span>
-												<h3>
-													<a href="#">Repairing a hyperspace window</a>
-												</h3>
-											</header>
-											<p>Phasellus quam turpis, feugiat sit amet ornare in,
-												hendrerit in lectus semper mod quisturpis nisi consequat
-												etiam lorem. Phasellus quam turpis, feugiat et sit amet
-												ornare in, hendrerit in lectus semper mod quis eget mi
-												dolore.</p>
-										</div>
-									</article>
-
-									<!-- Excerpt -->
-									<article class="box excerpt">
-										<a href="#" class="image left"><img
-											src="/resources/images/pic05.jpg" alt="" /></a>
-										<div>
-											<header>
-												<span class="date">July 18</span>
-												<h3>
-													<a href="#">Adventuring with a knee injury</a>
-												</h3>
-											</header>
-											<p>Phasellus quam turpis, feugiat sit amet ornare in,
-												hendrerit in lectus semper mod quisturpis nisi consequat
-												etiam lorem. Phasellus quam turpis, feugiat et sit amet
-												ornare in, hendrerit in lectus semper mod quis eget mi
-												dolore.</p>
-										</div>
-									</article>
-
-									<!-- Excerpt -->
-									<article class="box excerpt">
-										<a href="#" class="image left"><img
-											src="/resources/images/pic06.jpg" alt="" /></a>
-										<div>
-											<header>
-												<span class="date">July 14</span>
-												<h3>
-													<a href="#">Preparing for Y2K38</a>
-												</h3>
-											</header>
-											<p>Phasellus quam turpis, feugiat sit amet ornare in,
-												hendrerit in lectus semper mod quisturpis nisi consequat
-												etiam lorem. Phasellus quam turpis, feugiat et sit amet
-												ornare in, hendrerit in lectus semper mod quis eget mi
-												dolore.</p>
-										</div>
-									</article>
-
-								</section>
-							</div>
-							<div class="col-4 col-12-medium">
-
-								<!-- Spotlight -->
-								<section class="box spotlight">
-									<h2 class="icon fa-file-alt">화제글 Spotlight</h2>
-									<article>
-										<a href="#" class="image featured"><img
-											src="/resources/images/pic07.jpg" alt=""></a>
-										<header>
-											<h3>
-												<a href="#">Neural Implants</a>
-											</h3>
-											<p>The pros and cons. Mostly cons.</p>
-										</header>
-										<p>Phasellus quam turpis, feugiat sit amet ornare in,
-											hendrerit in lectus semper mod quisturpis nisi consequat
-											ornare in, hendrerit in lectus semper mod quis eget mi quat
-											etiam lorem. Phasellus quam turpis, feugiat sed et lorem
-											ipsum dolor consequat dolor feugiat sed et tempus consequat
-											etiam.</p>
-										<p>Lorem ipsum dolor quam turpis, feugiat sit amet ornare
-											in, hendrerit in lectus semper mod quisturpis nisi consequat
-											etiam lorem sed amet quam turpis.</p>
-										<footer>
-											<a href="#" class="button alt icon solid fa-file-alt">Continue
-												Reading</a>
-										</footer>
-									</article>
-								</section>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<!-- Footer Wrapper -->

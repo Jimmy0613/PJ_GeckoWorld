@@ -20,20 +20,6 @@
 					<li><h3>
 							<a href="/board/listPhoto">게코 자랑 Photos</a>
 						</h3></li>
-					<li><h3>
-							<a href="#">게코 분양 Adoption</a>
-						</h3>
-						<ul>
-							<li><h4>
-									<a href="#">》 데려가세요 with you</a>
-								</h4></li>
-							<li><h4>
-									<a href="#">》 데려올게요 with me</a>
-								</h4></li>
-							<li><h4>
-									<a href="#">》 후기 review</a>
-								</h4></li>
-						</ul></li>
 				</ul>
 			</section>
 			<section>

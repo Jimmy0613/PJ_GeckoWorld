@@ -10,8 +10,6 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css?version=${System.currentTimeMillis()}" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/login.css?version=${System.currentTimeMillis()}" />
 </head>
 <body class="no-sidebar is-preload">
 	<div id="page-wrapper">
@@ -63,22 +61,7 @@
 							<div class="col-4 col-12-medium">
 								<div id="sidebar">
 									<!-- Sidebar -->
-									<section>
-										<header class="major">
-											<h2>메뉴 menu</h2>
-										</header>
-										<ul class="style2">
-											<li><h4>
-													<a href="/user/join">회원가입</a>
-												</h4></li>
-											<li><h4>
-													<a href="#">아이디 찾기</a>
-												</h4></li>
-											<li><h4>
-													<a href="#">비밀번호 찾기</a>
-												</h4></li>
-										</ul>
-									</section>
+									<%@include file="/WEB-INF/views/user/sidebar.jsp"%>
 								</div>
 							</div>
 							<div class="col-8 col-12-medium imp-medium">
@@ -86,43 +69,14 @@
 									<!-- Content -->
 									<article>
 										<header class="major">
-											<h2>로그인</h2>
-											<p>sign in</p>
+											<h2>계정관리</h2>
+											<p>account</p>
 										</header>
-										<form id="form_norm_login" method="get"
-											action="/user/login.do">
-											<table>
-												<tr>
-													<td>아이디</td>
-													<td colspan="2"><input style="width: 250px;" id="id"
-														type="text" name='id'></td>
-												</tr>
-												<tr>
-													<td>비밀번호</td>
-													<td colspan="2"><input style="width: 250px;" id="pw"
-														type="password" name='pw'></td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td id="confirm">
-														<!-- 로그인 안내메시지 출력 위치 -->
-													</td>
-												</tr>
-												<tr>
-													<td></td>
-													<td><input id="norm_login_btn" type="button"
-														value="로그인">
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td></td>
-													<td><a href="/user/kakaoLogin"><img
-															src="/resources/images/kakao_login_medium_narrow.png"></a></td>
-												</tr>
-											</table>
-										</form>
+										<p>
+											회원 탈퇴시 작성하신 글, 댓글은 모두 유지되며 삭제하거나 수정할 수 없게 됩니다. 신중하게 고민하신 후
+											결정해주세요.<br>
+											<button onclick="javascript:out(${LOGIN_USER.id});">회원탈퇴</button>
+										</p>
 									</article>
 
 								</div>
@@ -143,8 +97,6 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/js/login.js?version=${System.currentTimeMillis()}"></script>
-
+	<script src="/resources/assets/js/out.js"></script>
 </body>
 </html>

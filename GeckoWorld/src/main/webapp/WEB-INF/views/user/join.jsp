@@ -17,7 +17,39 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<%@include file="/WEB-INF/views/header.jsp"%>
+				<header id="header">
+					<div class="inner">
+						<!-- Logo -->
+						<h1>
+							<a href="/" id="logo">게코월드 GeckoWorld</a>
+						</h1>
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="/">홈 Home</a></li>
+								<li><a href="/board/list">게시판 Board</a>
+									<ul>
+										<li><a href="/board/list">게시판 main</a></li>
+										<li class="current_page_item"><a href="/board/listPhoto">게코
+												자랑 Photos</a></li>
+									</ul>
+								<li><a href="#">공간 대여 space rental</a></li>
+								<c:choose>
+									<c:when test="${LOGIN_USER != null}">
+										<li class="current_page_item"><a href="/user/mypage">회원
+												정보 mypage</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="current_page_item"><a href="/user/login">로그인
+												sign in</a></li>
+									</c:otherwise>
+								</c:choose>
+
+							</ul>
+						</nav>
+
+					</div>
+				</header>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -29,29 +61,22 @@
 							<div class="col-4 col-12-medium">
 								<div id="sidebar">
 									<!-- Sidebar -->
+									<!-- Sidebar -->
 									<section>
 										<header class="major">
 											<h2>메뉴 menu</h2>
 										</header>
 										<ul class="style2">
-											<li><a href="/user/login">로그인</a></li>
-											<li><a href="#">아이디 찾기</a></li>
-											<li><a href="#">비밀번호 찾기</a></li>
+											<li><h4>
+													<a href="/user/login">로그인</a>
+												</h4></li>
+											<li><h4>
+													<a href="#">아이디 찾기</a>
+												</h4></li>
+											<li><h4>
+													<a href="#">비밀번호 찾기</a>
+												</h4></li>
 										</ul>
-									</section>
-									<section>
-										<header class="major">
-											<h2>Subheading</h2>
-										</header>
-										<p>Phasellus quam turpis, feugiat sit amet ornare in,
-											hendrerit in lectus. Praesent semper mod quis eget mi. Etiam
-											eu ante risus. Aliquam erat volutpat. Aliquam luctus et
-											mattis lectus sit amet pulvinar. Nam turpis nisi consequat
-											etiam.</p>
-										<footer>
-											<a href="#" class="button icon solid fa-info-circle">Find
-												out more</a>
-										</footer>
 									</section>
 								</div>
 							</div>
@@ -78,27 +103,32 @@
 														동의합니다.(필수)</td>
 												</tr>
 												<tr>
-													<td>* 아이디 <span style="color:green;" id="id_check"></span></td>
-													<td style="width: 300px;"><input id="id" onchange="id_onchange();" type="text" name='id'
-														placeholder="아이디 입력 (5 ~ 12자)" value="" required style="width: 250px;"></td>
-													<td colspan="3"><input type="button" id="id_confirm_btn"
-														value="중복 확인" onclick="id_confirm();"></td>
+													<td>* 아이디 <span style="color: green;" id="id_check"></span></td>
+													<td style="width: 300px;"><input id="id"
+														onchange="id_onchange();" type="text" name='id'
+														placeholder="아이디 입력 (5 ~ 12자)" value="" required
+														style="width: 250px;"></td>
+													<td colspan="3"><input type="button"
+														id="id_confirm_btn" value="중복 확인" onclick="id_confirm();"></td>
 												</tr>
 												<tr>
 													<td></td>
 													<td colspan="4" id="id_msg">
-														<!-- 아이디 중복 여부 안내 출력 위치 --> 
+														<!-- 아이디 중복 여부 안내 출력 위치 -->
 													</td>
 												</tr>
 												<tr>
-													<td>* 비밀번호 <span style="color:green;" id="pw_check1"></span></td>
-													<td colspan="4"><input id="pw1" type="password" name='pw' placeholder="비밀번호 입력 (8 ~ 14자)" 
-														value="" required style="width: 250px;" onchange="pw_onchange();"></td>
+													<td>* 비밀번호 <span style="color: green;" id="pw_check1"></span></td>
+													<td colspan="4"><input id="pw1" type="password"
+														name='pw' placeholder="비밀번호 입력 (8 ~ 14자)" value=""
+														required style="width: 250px;" onchange="pw_onchange();"></td>
 												</tr>
 												<tr>
-													<td>* 비밀번호 확인 <span style="color:green;" id="pw_check2"></span></td>
-													<td colspan="4"><input id="pw2" type="password" value="" required
-														 placeholder="비밀번호 재입력" style="width: 250px;" onchange="pw_onchange();"></td>
+													<td>* 비밀번호 확인 <span style="color: green;"
+														id="pw_check2"></span></td>
+													<td colspan="4"><input id="pw2" type="password"
+														value="" required placeholder="비밀번호 재입력"
+														style="width: 250px;" onchange="pw_onchange();"></td>
 												</tr>
 												<tr>
 													<td></td>
@@ -107,17 +137,18 @@
 													</td>
 												</tr>
 												<tr>
-													<td>* 별명 <span style="color:green;" id="name_check"></span></td>
-													<td colspan="4"><input id="user_name" type="text" name='nickname'
-														placeholder="2 ~ 8자" value="" required maxlength="8" style="width: 250px;"></td>
+													<td>* 별명 <span style="color: green;" id="name_check"></span></td>
+													<td colspan="4"><input id="user_name" type="text"
+														name='nickname' placeholder="2 ~ 8자" value="" required
+														maxlength="8" style="width: 250px;"></td>
 												</tr>
 												<tr></tr>
 												<tr>
 													<td style="width: 125px;"></td>
-													<td colspan="4">
-													<input type="hidden" name='type' value="normal"> 
-													<input type="hidden" name='role' value="guest">
-													<input id="form_join_btn" type="button" value="회원가입" onclick="join_confirm();">
+													<td colspan="4"><input type="hidden" name='type'
+														value="normal"> <input type="hidden" name='role'
+														value="guest"> <input id="form_join_btn"
+														type="button" value="회원가입" onclick="join_confirm();">
 													</td>
 												</tr>
 											</table>

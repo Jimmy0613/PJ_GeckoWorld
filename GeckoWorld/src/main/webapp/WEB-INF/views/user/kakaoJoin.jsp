@@ -17,7 +17,39 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<%@include file="/WEB-INF/views/header.jsp"%>
+				<header id="header">
+					<div class="inner">
+						<!-- Logo -->
+						<h1>
+							<a href="/" id="logo">게코월드 GeckoWorld</a>
+						</h1>
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="/">홈 Home</a></li>
+								<li><a href="/board/list">게시판 Board</a>
+									<ul>
+										<li><a href="/board/list">게시판 main</a></li>
+										<li class="current_page_item"><a href="/board/listPhoto">게코
+												자랑 Photos</a></li>
+									</ul>
+								<li><a href="#">공간 대여 space rental</a></li>
+								<c:choose>
+									<c:when test="${LOGIN_USER != null}">
+										<li class="current_page_item"><a href="/user/mypage">회원
+												정보 mypage</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="current_page_item"><a href="/user/login">로그인
+												sign in</a></li>
+									</c:otherwise>
+								</c:choose>
+
+							</ul>
+						</nav>
+
+					</div>
+				</header>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -83,20 +115,16 @@
 												<tr></tr>
 												<tr>
 													<td>* 별명</td>
-													<td><input style="width:250px;"id="user_name" type="text" name='nickname'
+													<td><input style="width: 250px;" id="user_name"
+														type="text" name='nickname'
 														value="${KAKAO_LOGIN.nickname}" required maxlength="6"></td>
 												</tr>
 												<tr>
-													<td><input
-														type="hidden" name='type'
-														value="kakao"><input
-														type="hidden" name='id'
-														value="${KAKAO_LOGIN.id}"><input
-														type="hidden" name='pw'
-														value="${KAKAO_LOGIN.pw}"><input
-														type="hidden" name='role'
-														value="guest"><br/><input
-														id="form_kakao_join_btn" type="button" value="회원가입"></td>
+													<td><input type="hidden" name='type' value="kakao"><input
+														type="hidden" name='id' value="${KAKAO_LOGIN.id}"><input
+														type="hidden" name='pw' value="${KAKAO_LOGIN.pw}"><input
+														type="hidden" name='role' value="guest"><br />
+													<input id="form_kakao_join_btn" type="button" value="회원가입"></td>
 												</tr>
 											</table>
 										</form>

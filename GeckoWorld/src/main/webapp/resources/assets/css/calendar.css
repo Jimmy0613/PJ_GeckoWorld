@@ -1,2 +1,63 @@
 @charset "UTF-8";
+#plus_btn, #minus_btn{
+	padding: 5px;
+}
+.calendar{
+	margin:auto;
+	width: 350px; 
+	min-height:390px;
+	background-color: white;
+	font-weight: bolder;
+	align-items:center;
+	justify-content:center;
+}
+.calendar td{
+	min-height:52px;
+}
+#week{
+	background-color: white;
+	color: black;
+}
+.pastDay{
+    background-color: white;
+}
 
+.today{
+	border: 2px solid navy;
+    background-color: #f2f7ff;
+}
+.futureDay{
+	background-color: #f2f7ff;
+}
+.today, .futureDay{
+	cursor: pointer;
+}
+.choosedDate{
+	background-color: #fef3a5;
+}
+
+#prev, #next{
+    cursor: pointer;
+}
+
+#yearMonth, #prev, #next{
+	background-color: #013676;
+	color: white;
+}
+
+.calendar td{
+	font-size: 1.1em;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	
+}
+
+.disabled{
+	color: gainsboro;
+	cursor: normal !important;
+}
+
+.choosed{
+	background-color:#fef3a5;
+}

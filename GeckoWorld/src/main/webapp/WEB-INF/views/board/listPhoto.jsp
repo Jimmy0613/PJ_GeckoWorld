@@ -19,7 +19,38 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<%@include file="/WEB-INF/views/header.jsp"%>
+				<header id="header">
+					<div class="inner">
+
+						<!-- Logo -->
+						<h1>
+							<a href="/" id="logo">게코월드 GeckoWorld</a>
+						</h1>
+
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="/">홈 Home</a></li>
+								<li class="current_page_item"><a href="/board/list">게시판 Board</a>
+									<ul>
+										<li><a href="/board/list">게시판 main</a></li>
+										<li class="current_page_item"><a href="/board/listPhoto">게코 자랑 Photos</a></li>
+									</ul>
+								<li><a href="#">공간 대여 space rental</a></li>
+								<c:choose>
+									<c:when test="${LOGIN_USER != null}">
+										<li><a href="/user/mypage">회원 정보 mypage</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="/user/login">로그인 sign in</a></li>
+									</c:otherwise>
+								</c:choose>
+
+							</ul>
+						</nav>
+
+					</div>
+				</header>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -74,7 +105,7 @@
 									</section>
 								</div>
 							</div>
-							<div class="col-8 col-12-medium imp-medium" style="width:75%;">
+							<div class="col-8 col-12-medium imp-medium" style="width: 75%;">
 								<div id="content">
 									<!-- Feature 1 -->
 									<section class="container box feature1">
@@ -86,26 +117,35 @@
 												</header>
 												<p>
 													<!--------- 글쓰기 버튼 --------->
-													<button onclick="location.href='/board/newPostPhoto'">글쓰기</button><br/><br/>
+													<c:if test="${LOGIN_USER != null}">
+														<button onclick="location.href='/board/newPostPhoto'">글쓰기</button>
+														<br />
+														<br />
+													</c:if>
 												</p>
 												<!-- 목록 이동 버튼  -->
 												<p style="width: 100%;">
 													<c:if test="${currentPage>1}">
-														<button style="cursor:pointer; float:left;" onclick="location.href='/board/listPhoto?currentPage=${(currentPage-1)}'">《《 이전 </button>
+														<button style="cursor: pointer; float: left;"
+															onclick="location.href='/board/listPhoto?currentPage=${(currentPage-1)}'">《《
+															이전</button>
 													</c:if>
 													<c:if test="${totalPage>1 && currentPage!=totalPage }">
-														<button onclick="location.href='/board/listPhoto?currentPage=${(currentPage+1)}'" style="cursor:pointer; float: right;">다음 》》</button>
+														<button
+															onclick="location.href='/board/listPhoto?currentPage=${(currentPage+1)}'"
+															style="cursor: pointer; float: right;">다음 》》</button>
 													</c:if>
 												</p>
 												<div class="col-4 col-12-medium"
-													style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows:300px 300px 300px; width: 100%; align-items:center; justify-content: center;">
+													style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 300px 300px 300px; width: 100%; align-items: center; justify-content: center;">
 													<c:if test="${list.size() == 0}">
 														<b>아직 글이 없습니다.</b>
 													</c:if>
 													<c:if test="${list.size() != 0}">
 														<c:forEach var="post" items="${list}">
-															<section onclick="location.href='/board/postPhoto?num=${post.num}'"
-																style="cursor:pointer; box-shadow: 2px 2px 4px #888; padding: 10px; margin:auto; width: 95%; height: 95%;">
+															<section
+																onclick="location.href='/board/postPhoto?num=${post.num}'"
+																style="cursor: pointer; box-shadow: 2px 2px 4px #888; padding: 10px; margin: auto; width: 95%; height: 95%;">
 																<b><fmt:formatDate value="${post.pdate}"
 																		pattern="yyyy-MM-dd" /></b>
 																<div

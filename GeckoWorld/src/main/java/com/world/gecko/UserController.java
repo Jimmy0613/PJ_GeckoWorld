@@ -39,7 +39,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping({ "/login", "/join", "kakaoJoin" })
+	@GetMapping({ "/login", "/join", "kakaoJoin", "/out" })
 	public void getView() {
 
 	}
