@@ -3,6 +3,7 @@ package com.world.gecko.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,5 +45,12 @@ public class PostService {
 		map.put("postList", list);
 		map.put("totalPage", totalPage);
 		return map;
+	}
+	
+	public void deletePost(int pnum) {
+		Optional<Post> post = Optional.ofNullable(repo.findByPnum(pnum));
+		if(post.isPresent()) {
+			repo.delete(post.get());
+		}
 	}
 }

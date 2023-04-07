@@ -32,22 +32,19 @@
 										<li><a href="/board/list">게시판 main</a></li>
 										<li class="current_page_item"><a href="/board/listPhoto">게코
 												자랑 Photos</a></li>
-									</ul>
-								<li><a href="#">공간 대여 space rental</a></li>
-								<c:choose>
-									<c:when test="${LOGIN_USER != null}">
-										<li class="current_page_item"><a href="/user/mypage">회원
-												정보 mypage</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="current_page_item"><a href="/user/login">로그인
-												sign in</a></li>
-									</c:otherwise>
-								</c:choose>
-
+									</ul></li>
+								<li class="current_page_item"><a href="/user/mypage">회원
+										정보 mypage</a>
+									<ul>
+										<li><a href="#">개인정보수정 Edit personal info</a></li>
+										<li><a href="/user/reservation">공간대여내역 reserve
+												history</a></li>
+										<li><a href="#">쪽지함 message box</a></li>
+										<li><a href="#">알사용내역 egg history</a></li>
+										<li><a href="/user/out">계정관리 account management</a></li>
+									</ul></li>
 							</ul>
 						</nav>
-
 					</div>
 				</header>
 			</div>
@@ -68,14 +65,13 @@
 								<div id="content">
 									<!-- Content -->
 									<article>
-										<header class="major">
-											<h2>계정관리</h2>
-											<p>account</p>
-										</header>
+										<h2>계정관리</h2>
+										<br />
 										<p>
-											회원 탈퇴시 작성하신 글, 댓글은 모두 유지되며 삭제하거나 수정할 수 없게 됩니다. 신중하게 고민하신 후
-											결정해주세요.<br>
-											<button onclick="javascript:out(${LOGIN_USER.id});">회원탈퇴</button>
+											회원 탈퇴시 작성하신 글, 댓글은 모두 유지되며 삭제하거나 수정할 수 없게 됩니다.<br /> 이미 예약하신
+											공간 대여 내역은 유지되므로 취소를 원하시면 꼭 연락 부탁드립니다. <br /> 신중하게 고민하신 후
+											결정해주세요.<br /> <br />
+											<button onclick="javascript:out('${LOGIN_USER.id}');">회원탈퇴</button>
 										</p>
 									</article>
 

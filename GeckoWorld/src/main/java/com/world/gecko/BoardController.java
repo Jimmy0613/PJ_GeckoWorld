@@ -142,5 +142,11 @@ public class BoardController {
 		servicePhoto.newPostPhoto(post, url, desc, request);
 		return "redirect:/board/listPhoto";
 	}
+	
+	@GetMapping("/deletePost")
+	public String deletePost(@RequestParam("pnum")int pnum) {
+		service.deletePost(pnum);
+		return "redirect:/board/list";
+	}
 
 }

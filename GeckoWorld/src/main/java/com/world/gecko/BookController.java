@@ -24,4 +24,16 @@ public class BookController {
 	public List<RoomBook> bookList(@RequestParam("date") String date) {
 		return rbService.getBookListByDate(date);
 	}
+	
+	@RequestMapping(value="/book.do", method = RequestMethod.GET)
+	public String book(RoomBook rb) {
+		rbService.newBook(rb);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/cancel", method = RequestMethod.GET)
+	@ResponseBody
+	public void cancel(@RequestParam("num") int num) {
+		rbService.cancel(num);
+	}
 }

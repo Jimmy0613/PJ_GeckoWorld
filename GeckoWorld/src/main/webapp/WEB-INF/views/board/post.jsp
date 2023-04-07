@@ -36,17 +36,22 @@
 									<ul>
 										<li><a href="/board/list">게시판 main</a></li>
 										<li><a href="/board/listPhoto">게코 자랑 Photos</a></li>
-									</ul>
-								<li><a href="#">공간 대여 space rental</a></li>
-								<c:choose>
-									<c:when test="${LOGIN_USER != null}">
-										<li><a href="/user/mypage">회원 정보 mypage</a></li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="/user/login">로그인 sign in</a></li>
-									</c:otherwise>
-								</c:choose>
-
+									</ul> <c:choose>
+										<c:when test="${LOGIN_USER != null}">
+											<li><a href="/user/mypage">회원 정보 mypage</a>
+												<ul>
+													<li><a href="#">개인정보수정 Edit personal info</a></li>
+													<li><a href="/user/reservation">공간대여내역 reserve
+															history</a></li>
+													<li><a href="#">쪽지함 message box</a></li>
+													<li><a href="#">알사용내역 egg history</a></li>
+													<li><a href="/user/out">계정관리 account management</a></li>
+												</ul></li>
+										</c:when>
+										<c:otherwise>
+											<li><a href="/user/login">로그인 sign in</a></li>
+										</c:otherwise>
+									</c:choose>
 							</ul>
 						</nav>
 
@@ -61,8 +66,24 @@
 					<div class="container">
 						<div class="row">
 							<!-- Sidebar -->
-							<%@include file="/WEB-INF/views/board/sidebar.jsp"%>
-							<div class="col-8 col-12-medium imp-medium">
+							<div class="col-4 col-12-medium" style="width: 25%;">
+								<div id="sidebar">
+									<section>
+										<header class="major">
+											<h2>메뉴 menu</h2>
+										</header>
+										<ul>
+											<li><h3>
+													<a href="/board/list">게시판 main</a>
+												</h3></li>
+											<li><h3>
+													<a href="/board/listPhoto">게코 자랑 Photos</a>
+												</h3></li>
+										</ul>
+									</section>
+								</div>
+							</div>
+							<div class="col-8 col-12-medium imp-medium" style="width: 75%;">
 								<div id="content">
 									<!-- Content -->
 									<article>
@@ -91,6 +112,11 @@
 											<!-- ----작성자, 날짜표시 자리--- -->
 											<strong id="writerDate">${post.w_nickname}&nbsp;|&nbsp;<fmt:formatDate
 													value="${post.pdate}" pattern="yyyy-MM-dd hh:mm:ss" />&nbsp;|&nbsp;조회수&nbsp;${post.view_count}
+												&nbsp; <c:if test="${LOGIN_USER != null}">
+													<c:if test="${LOGIN_USER.id eq post.w_id}">
+														<button style="padding: 5px;">수정</button>&nbsp;<button onclick="deletePost('${post.pnum}');" style="padding: 5px;">삭제</button>
+													</c:if>
+												</c:if>
 											</strong>
 											<hr />
 											<!----- 글 내용 자리 ---->

@@ -32,22 +32,11 @@
 										<li><a href="/board/list">게시판 main</a></li>
 										<li class="current_page_item"><a href="/board/listPhoto">게코
 												자랑 Photos</a></li>
-									</ul>
-								<li><a href="#">공간 대여 space rental</a></li>
-								<c:choose>
-									<c:when test="${LOGIN_USER != null}">
-										<li class="current_page_item"><a href="/user/mypage">회원
-												정보 mypage</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="current_page_item"><a href="/user/login">로그인
-												sign in</a></li>
-									</c:otherwise>
-								</c:choose>
-
+									</ul></li>
+								<li class="current_page_item"><a href="/user/login">로그인
+										sign in</a></li>
 							</ul>
 						</nav>
-
 					</div>
 				</header>
 			</div>
@@ -123,8 +112,8 @@
 													<td><input type="hidden" name='type' value="kakao"><input
 														type="hidden" name='id' value="${KAKAO_LOGIN.id}"><input
 														type="hidden" name='pw' value="${KAKAO_LOGIN.pw}"><input
-														type="hidden" name='role' value="guest"><br />
-													<input id="form_kakao_join_btn" type="button" value="회원가입"></td>
+														type="hidden" name='role' value="guest"><br /> <input
+														id="form_kakao_join_btn" type="button" value="회원가입"></td>
 												</tr>
 											</table>
 										</form>

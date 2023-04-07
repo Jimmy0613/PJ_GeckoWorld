@@ -1,63 +1,137 @@
 @charset "UTF-8";
-#plus_btn, #minus_btn{
+
+#plus_btn,
+#minus_btn {
 	padding: 5px;
 }
-.calendar{
-	margin:auto;
-	width: 350px; 
-	min-height:390px;
+
+.overlay {
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+.bookBtn {
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+.bookBtn>.overlay {
+	display: block;
+}
+
+.calendar {
+	margin: auto;
+	width: 350px;
+	min-height: 390px;
 	background-color: white;
 	font-weight: bolder;
-	align-items:center;
-	justify-content:center;
+	align-items: center;
+	justify-content: center;
 }
-.calendar td{
-	min-height:52px;
+
+.calendar td {
+	min-height: 52px;
 }
-#week{
+
+#week {
 	background-color: white;
 	color: black;
 }
-.pastDay{
-    background-color: white;
+
+.pastDay {
+	background-color: white;
 }
 
-.today{
+.today {
 	border: 2px solid navy;
-    background-color: #f2f7ff;
-}
-.futureDay{
 	background-color: #f2f7ff;
 }
-.today, .futureDay{
+
+.futureDay {
+	background-color: #f2f7ff;
 	cursor: pointer;
 }
-.choosedDate{
+
+.choosedDate {
 	background-color: #fef3a5;
 }
 
-#prev, #next{
-    cursor: pointer;
+#prev,
+#next {
+	cursor: pointer;
 }
 
-#yearMonth, #prev, #next{
+#yearMonth,
+#prev,
+#next {
 	background-color: #013676;
 	color: white;
 }
 
-.calendar td{
+.calendar td {
 	font-size: 1.1em;
 	height: 40px;
 	align-items: center;
 	justify-content: center;
-	
+
 }
 
-.disabled{
+.result input {
+	width: 70px;
+	border: none;
+}
+
+.disabled {
 	color: gainsboro;
 	cursor: normal !important;
 }
 
-.choosed{
-	background-color:#fef3a5;
+.choosed {
+	background-color: #fef3a5;
+}
+
+/* 모달 창 스타일 */
+#modal {
+	position: fixed;
+	/* 모달이 스크롤에 따라 움직이지 않도록 고정 */
+	z-index: 999;
+	/* 다른 요소보다 위에 표시 */
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* 불투명한 배경 */
+	display: none;
+	/* 모달이 처음에는 보이지 않도록 숨김 */
+}
+
+/* 모달 내용 스타일 */
+#modal-content {
+	position: absolute;
+	/* 모달 내용을 모달 창에 상대적으로 배치 */
+	top: 50%;
+	/* 수직 가운데 정렬 */
+	left: 50%;
+	/* 수평 가운데 정렬 */
+	transform: translate(-50%, -50%);
+	/* 수평/수직 가운데 정렬 */
+	width: 400px;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+/* 모달 닫기 버튼 스타일 */
+#modal-close {
+	display: block;
+	margin-top: 20px;
+	text-align: right;
 }

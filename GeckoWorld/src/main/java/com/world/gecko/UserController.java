@@ -1,9 +1,11 @@
 package com.world.gecko;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.world.gecko.api.KakaoApi;
 import com.world.gecko.domain.User;
+import com.world.gecko.service.RoomBookService;
 import com.world.gecko.service.UserService;
 import com.world.gecko.util.PwEncoder;
 import com.world.gecko.util.SessionUtils;
@@ -29,6 +33,7 @@ public class UserController {
 
 	private KakaoApi kakao;
 	private UserService service;
+	private RoomBookService rbService;
 
 	@GetMapping("/mypage")
 	public String mypage(HttpServletRequest request) {
@@ -42,6 +47,12 @@ public class UserController {
 	@GetMapping({ "/login", "/join", "kakaoJoin", "/out" })
 	public void getView() {
 
+	}
+
+	@GetMapping("/reservation")
+	public void reservation(Model model, HttpServletRequest request) {
+		User loginUser = (User) SessionUtils.getObject(request, "LOGIN_USER");
+		model.addAttribute("book", rbService.findByUserId(loginUser.getId()));
 	}
 
 	@PostMapping("/join.do")
@@ -117,6 +128,17 @@ public class UserController {
 		SessionUtils.removeObject(request, "access_Token");
 		SessionUtils.removeObject(request, "LOGIN_USER");
 		return "redirect:/";
+	}
+
+	@GetMapping("/out.do")
+	@ResponseBody
+	public void out(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		if (((User) SessionUtils.getObject(request, "LOGIN_USER")).getType().equals("kakao")) {
+			SessionUtils.removeObject(request, "access_Token");
+		}
+		SessionUtils.removeObject(request, "LOGIN_USER");
+		service.userOut(id);
 	}
 
 }

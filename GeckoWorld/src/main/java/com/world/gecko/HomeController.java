@@ -1,17 +1,11 @@
 package com.world.gecko;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.world.gecko.domain.RoomBook;
-import com.world.gecko.service.RoomBookService;
 
 @Controller
 public class HomeController {
@@ -21,8 +15,9 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/error")
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public void error() {
 
 	}
+
 }

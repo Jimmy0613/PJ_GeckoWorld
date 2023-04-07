@@ -55,4 +55,11 @@ public class UserService {
 			}
 		}
 	}
+
+	public void userOut(String id) {
+		Optional<User> user = Optional.ofNullable(repo.findById(id));
+		if (user.isPresent()) {
+			repo.delete(user.get());
+		}
+	}
 }

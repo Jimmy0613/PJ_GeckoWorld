@@ -32,22 +32,19 @@
 										<li><a href="/board/list">게시판 main</a></li>
 										<li class="current_page_item"><a href="/board/listPhoto">게코
 												자랑 Photos</a></li>
-									</ul>
-								<li><a href="#">공간 대여 space rental</a></li>
-								<c:choose>
-									<c:when test="${LOGIN_USER != null}">
-										<li class="current_page_item"><a href="/user/mypage">회원
-												정보 mypage</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="current_page_item"><a href="/user/login">로그인
-												sign in</a></li>
-									</c:otherwise>
-								</c:choose>
-
+									</ul></li>
+								<li class="current_page_item"><a href="/user/mypage">회원
+										정보 mypage</a>
+									<ul>
+										<li><a href="#">개인정보수정 Edit personal info</a></li>
+										<li><a href="/user/reservation">공간대여내역 reserve
+												history</a></li>
+										<li><a href="#">쪽지함 message box</a></li>
+										<li><a href="#">알사용내역 egg history</a></li>
+										<li><a href="/user/out">계정관리 account management</a></li>
+									</ul></li>
 							</ul>
 						</nav>
-
 					</div>
 				</header>
 			</div>

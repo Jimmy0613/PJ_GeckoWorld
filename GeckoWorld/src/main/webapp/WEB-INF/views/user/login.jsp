@@ -34,22 +34,11 @@
 										<li><a href="/board/list">게시판 main</a></li>
 										<li class="current_page_item"><a href="/board/listPhoto">게코
 												자랑 Photos</a></li>
-									</ul>
-								<li><a href="#">공간 대여 space rental</a></li>
-								<c:choose>
-									<c:when test="${LOGIN_USER != null}">
-										<li class="current_page_item"><a href="/user/mypage">회원
-												정보 mypage</a></li>
-									</c:when>
-									<c:otherwise>
-										<li class="current_page_item"><a href="/user/login">로그인
-												sign in</a></li>
-									</c:otherwise>
-								</c:choose>
-
+									</ul></li>
+								<li class="current_page_item"><a href="/user/login">로그인
+										sign in</a></li>
 							</ul>
 						</nav>
-
 					</div>
 				</header>
 			</div>
@@ -91,37 +80,34 @@
 										</header>
 										<form id="form_norm_login" method="get"
 											action="/user/login.do">
-											<table>
-												<tr>
-													<td>아이디</td>
-													<td colspan="2"><input style="width: 250px;" id="id"
-														type="text" name='id'></td>
-												</tr>
-												<tr>
-													<td>비밀번호</td>
-													<td colspan="2"><input style="width: 250px;" id="pw"
-														type="password" name='pw'></td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td id="confirm">
-														<!-- 로그인 안내메시지 출력 위치 -->
-													</td>
-												</tr>
-												<tr>
-													<td></td>
-													<td><input id="norm_login_btn" type="button"
-														value="로그인">
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-												</tr>
-												<tr>
-													<td></td>
-													<td><a href="/user/kakaoLogin"><img
-															src="/resources/images/kakao_login_medium_narrow.png"></a></td>
-												</tr>
-											</table>
+											<div
+												style="width: 500px; display: grid; grid-template-columns: 3fr 1fr;">
+												<div>
+													<table>
+														<tr>
+															<td style="font-size: 1.1em;"><b>아이디</b></td>
+															<td><input style="width: 250px;" id="id" type="text"
+																name='id'></td>
+														</tr>
+														<tr>
+															<td style="font-size: 1.1em;"><b>비밀번호</b></td>
+															<td><input style="width: 250px;" id="pw"
+																type="password" name='pw'></td>
+														</tr>
+														<tr>
+															<td colspan="2" id="confirm">
+																<!-- 로그인 안내메시지 출력 위치 -->
+															</td>
+														</tr>
+													</table>
+												</div>
+												<div>
+													<input id="norm_login_btn" type="button"
+														style="height: 100px;" value="로그인">
+												</div>
+											</div>
+											<a href="/user/kakaoLogin"><img
+												src="/resources/images/kakao_login_medium_narrow.png"></a>
 										</form>
 									</article>
 

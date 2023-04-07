@@ -12,9 +12,6 @@
 		<header class="major">
 			<h2>내 정보 My Info</h2>
 		</header>
-		<c:if test="${LOGIN_USER==null}">
-			<p>로그인 해주세요.</p>
-		</c:if>
 		<c:if test="${LOGIN_USER!=null}">
 			<table>
 				<tr>
@@ -43,19 +40,19 @@
 	<section>
 		<ul class="style2">
 			<li><h4>
-					<a href="#">비밀번호변경 password </a>
+					<a href="#">개인정보수정 Edit personal info</a>
 				</h4></li>
 			<li><h4>
-					<a href="#">공간대여 space rental</a>
+					<a href="/user/reservation">공간대여내역 reserve history</a>
 				</h4></li>
 			<li><h4>
-					<a href="#">쪽지함 message</a>
+					<a href="#">쪽지함 message box</a>
 				</h4></li>
 			<li><h4>
-					<a href="#">알 사용 내역 egg</a>
+					<a href="#">알사용내역 egg history</a>
 				</h4></li>
 			<li><h4>
-					<a href="/user/out">계정관리 account</a>
+					<a href="/user/out">계정관리 account management</a>
 				</h4></li>
 		</ul>
 	</section>

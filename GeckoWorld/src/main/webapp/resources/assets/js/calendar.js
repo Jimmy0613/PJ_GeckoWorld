@@ -38,9 +38,6 @@ function buildCalendar() {
         } else if (nowDay.getFullYear() === today.getFullYear() && nowDay.getMonth() === today.getMonth() && nowDay.getDate() == today.getDate()) {
             nowColumn.className = "today";
             nowColumn.style.border = "2px solid navy";
-            nowColumn.onclick = function () {
-                choiceDate(this);
-            }
         } else {
             nowColumn.className = "futureDay";
             nowColumn.onclick = function () { choiceDate(this); }
@@ -100,23 +97,17 @@ function search() {
     if ($(".choosed").length > 0) {
         $(".choosed").removeClass("choosed");
     }
-    if (date == '') {
-        alert('날짜를 선택해주세요.');
-        return;
-    }
-    if (hour == 0) {
-        alert('이용 시간을 선택해주세요.');
-        return;
-    }
     let uri = `/book/bookSearch?date=${date}`;
     $.get(uri, function (data) {
         console.log(data);
         $(".result").css("display", "table-row-group");
         for (let i = 0; i < data.length; i++) {
-            let startTime = data[i].startTime;
-            let endTime = data[i].endTime;
-            for (let j = startTime; j <= endTime - 1; j++) {
-                $("#time" + j).addClass('disabled').css('cursor', 'normal');
+            if (data[i].status == '예약') {
+                let startTime = data[i].startTime;
+                let endTime = data[i].endTime;
+                for (let j = startTime; j <= endTime - 1; j++) {
+                    $("#time" + j).addClass('disabled').css('cursor', 'normal');
+                }
             }
         }
         if (hour != 1) {
@@ -158,4 +149,36 @@ function choice(i, hour) {
         $("#time" + (i + 1)).addClass("choosed");
         $("#time" + (i + 2)).addClass("choosed");
     }
+}
+
+function book() {
+    let date = $("#choosedDate").val();
+    let hour = $("#timeSelect").val();
+    if (date == '' || hour == 0) {
+        alert('날짜와 이용시간을 선택해주세요.');
+        return;
+    }
+    if ($(".choosed").length < 1) {
+        alert('이용하실 시간을 선택해주세요.');
+        return;
+    }
+    let startTime = parseInt($('.choosed').data('value'));
+    let endTime = (startTime + parseInt(hour));
+    $("#bookDate").val(date);
+    $("#startTime").val(startTime);
+    $("#endTime").val(endTime);
+    $("#startTimeText").text(startTime + ':00');
+    $("#endTimeText").text(endTime + ':00 (꼭 지켜주세요❤)');
+    $("#modal").css('display', 'block');
+}
+
+function modalClose() {
+    $("#bookDate").val('');
+    $("#startTime").val('');
+    $("#endTime").val('');
+    $("#modal").css('display', 'none');
+}
+
+function bookSubmit() {
+    $("#bookSubmit").submit();
 }

@@ -29,17 +29,17 @@ public class RoomBook {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int num;
 
-	@Column(name = "room_num", nullable = false)
-	@Expose
-	private int room_num;
-
 	@Column(name = "guest_id", nullable = false)
 	@Expose
-	private String guest_id;
+	private String guestId;
+	
+	@Column(name = "guest_name", nullable = false)
+	@Expose
+	private String guestName;
 
 	@Column(name = "guest_phone", nullable = false)
 	@Expose
-	private String guest_phone;
+	private String guestPhone;
 
 	@Column(name = "book_date", nullable = false)
 	@Expose
@@ -60,7 +60,7 @@ public class RoomBook {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date reservedAt;
 
-	@Column(name = "status", nullable = false)
+	@Column(name = "status", columnDefinition = "VARCHAR(20) DEFAULT '예약'")
 	@Expose
 	private String status;
 
