@@ -102,6 +102,15 @@
 															<!-- ----작성자, 날짜표시 자리--- -->
 															<strong id="writerDate">${post.w_nickname}&nbsp;|&nbsp;<fmt:formatDate
 																	value="${post.pdate}" pattern="yyyy-MM-dd hh:mm:ss" />&nbsp;|&nbsp;조회수&nbsp;${post.view_count}
+																&nbsp; <c:if test="${LOGIN_USER != null}">
+																	<c:if test="${LOGIN_USER.id eq post.w_id}">
+																		<button
+																			onclick="location.href='/board/editPostPhoto?num=${post.num}'"
+																			style="padding: 5px;">수정</button>&nbsp;<button
+																			onclick="deletePost('${post.num}');"
+																			style="padding: 5px;">삭제</button>
+																	</c:if>
+																</c:if>
 															</strong>
 															<hr />
 															<c:if test="${urlList.size() > 0}">
@@ -144,8 +153,17 @@
 																		<tr>
 																			<td style="width: 15%;">&nbsp;&nbsp;${comment.w_nickname}
 																			</td>
-																			<td style="width: 85%;">: &nbsp;&nbsp;
-																				${comment.content}</td>
+																			<td id="comment${comment.cnum}" style="width: 85%;">
+																				&nbsp;&nbsp; ${comment.content} <c:if
+																					test="${LOGIN_USER != null }">
+																					<c:if test="${LOGIN_USER.id eq comment.w_id}">
+																		&nbsp;<button onclick="editComment(${comment.cnum});"
+																							style="padding: 5px;">수정</button>
+																						<button onclick="deleteComment(${comment.cnum});"
+																							style="padding: 5px;">삭제</button>
+																					</c:if>
+																				</c:if>
+																			</td>
 																		</tr>
 																		<tr>
 																			<td colspan="2"><hr></td>
@@ -204,5 +222,6 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
+	<script src="/resources/assets/js/postPhoto.js"></script>
 </body>
 </html>

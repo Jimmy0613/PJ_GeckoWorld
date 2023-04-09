@@ -4,14 +4,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>글쓰기 new post</title>
+<title>수정하기 edit answer</title>
 <meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css?version=${System.currentTimeMillis()}" />
-<link rel="shortcut icon"
-	href="/resources/assets/chevron-left-solid.svg" type="image/x-icon" />
 </head>
 <body class="left-sidebar is-preload">
 	<div id="page-wrapper">
@@ -82,49 +80,27 @@
 									<!-- Content -->
 									<article>
 										<header class="major">
-											<h2>게코 자랑 글쓰기</h2>
-											<p>new post with photo</p>
+											<h2>수정하기</h2>
+											<p>edit answer</p>
 										</header>
-										<form id="postForm">
-											<input type="hidden" name='w_id' value="${LOGIN_USER.id}" />
-											<input type="hidden" name='w_nickname'
-												value="${LOGIN_USER.nickname}" />
+										<form action="/board/editResponse.do" method="post">
+											<input type="hidden" name='pnum' value="${res.pnum}" /> 
+											<input type="hidden" name='rnum' value="${res.rnum}" /> 
 											<h3>
-												제목 title<br /> <br />&nbsp;&nbsp;<input name='title'
-													required style="width: 80%;">
+												<select name='tag'
+													style="width: 200px; font-weight: bolder; color: navy;">
+													<option>&nbsp;답변 ANSWER</option>
+												</select> <br /> <strong>'${ptitle}' 글에 대한 답변</strong> <br /> <br />&nbsp;&nbsp;<input
+													name='title' value="${res.title}" style="width: 600px;">
 											</h3>
-											<table class="writeForm" style="width: 100%;">
-												<thead style="width: 50%;" class="thead">
-													<tr class="file_">
-														<td style="width: 30%;"><input type="file" id="p_1"
-															accept="image/*" onchange="fileCommand(this.id)"></td>
-														<td style="width: 10%;">(대표)</td>
-														<td style="width: 10%;">
-															<button style="padding: 5px;" id="add_1" disabled
-																onclick="addTr(this.id, event);">추가</button>
-														</td>
-														<td style="width: 50%;"></td>
-													</tr>
-												</thead>
-											</table>
-											<div id="descBox"
-												style="display: block; width: 98%; height: auto; align-items: center; justify-content: center;">
-												<div id="descArea_1"
-													style="display: grid; width: 100%; height: 200px; grid-template-columns: 3fr 7fr;">
-													<img style="max-width: 100%; max-height: 200px;" id="img_1"
-														src="" alt=" 사진을 한장 이상 올려주세요." />
-													<textarea name="desc" spellcheck="false"
-														placeholder="무슨 사진인가요?"
-														style="min-height: 200px; resize: none;"></textarea>
-												</div>
-											</div>
-											<h4>이곳은 사진 게시판이에요. 사진이 없으면 글이 삭제될 수 있습니다.</h4>
-											<p id="contentArea">
-												<textarea name='content' spellcheck="false"
-													placeholder="더 하고싶은 말이 있나요?"
-													style="width: 100%; min-height: 200px; height: auto; resize: none;"></textarea>
+
+											<p>
+												<textarea name='content' spellcheck="false" 
+													style="width: 700px; min-height: 500px; height: auto; resize: none;">${res.content}</textarea>
 											</p>
-											<button onclick="submitForm();">글쓰기</button>
+											<input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+												type="button" value="취소"
+												onclick="location.href='/board/post?pnum=${res.pnum}'">
 										</form>
 									</article>
 
@@ -138,6 +114,7 @@
 		<!-- Footer Wrapper -->
 		<%@include file="/WEB-INF/views/footer.jsp"%>
 	</div>
+
 	<!-- Scripts -->
 	<script src="/resources/assets/js/jquery.min.js"></script>
 	<script src="/resources/assets/js/jquery.dropotron.min.js"></script>
@@ -145,6 +122,5 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
-	<script src="/resources/assets/js/newPostPhoto.js"></script>
 </body>
 </html>

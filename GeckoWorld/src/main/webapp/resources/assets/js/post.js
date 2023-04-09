@@ -5,14 +5,20 @@ function showResponse(pnum) {
         url: uri,
         dataType: "json",
         success: function (data) {
+            let list = data.list;
+            let LOGIN_USER = data.LOGIN_USER;
             let str = '<tr><th style="cursor:pointer;" onclick="hideResponse();"><strong>∧ 답변 감추기 ∧</strong></th></tr>';
             $(".resHead").append(str);
-            $.each(data, function (i, res) {
-                str = '<tr><td><h3><span style="color:white; background-color:cornflowerblue;">답변</span>&nbsp;&nbsp;' + res.w_nickname + ' 님의 답변</h3></td></tr>';
-                str += '<tr><td><b>' + res.rdate + '</b><c:if test="${LOGIN_USER != null}">';
-                str += '<c:if test="${LOGIN_USER.id eq post.w_id}">';
-                str += '&nbsp;<button style="padding: 5px;">수정</button>&nbsp;<button style="padding: 5px;">삭제</button>';
-                str += '</c:if></c:if></td></tr>';
+            $.each(list, function (i, res) {
+                str = '<tr><td><h3><span style="color:white; background-color:cornflowerblue;">답변</span>&nbsp;&nbsp;' + res.title + '</h3></td></tr>';
+                str += '<tr><td><b>' + res.w_nickname + '&nbsp;|&nbsp;' + res.rdate + '</b>';
+                if (LOGIN_USER != null) {
+                    if (LOGIN_USER.id == res.w_id) {
+                        str += '&nbsp;<button onclick="location.href=\'/board/editResponse?rnum=' + res.rnum + '&pnum=' + pnum + '\'" style="padding: 5px;">수정</button>';
+                        str += '&nbsp;<button onclick="deleteResponse(' + res.rnum + ');" style="padding: 5px;">삭제</button>';
+                    }
+                }
+                str += '</td></tr>';
                 str += '<tr><td><br/></td></tr>';
                 str += '<tr><td style="white-space: pre-line;">' + res.content + '</td></tr>';
                 str += '<tr><td><br/></td></tr>';
@@ -50,8 +56,57 @@ function like(rnum) {
     })
 }
 
+function editComment(cnum) {
+    let uri = '/board/editComment?cnum=' + cnum;
+    $.ajax({
+        type: "get",
+        url: uri,
+        success: function (data) {
+            let str = `<form action="/board/editComment.do" method="post">`
+            str += `<input type="hidden" name='pnum' value="${data.pnum}">`;
+            str += `<input type="hidden" name='cnum' value="${cnum}">`;
+            str += `<input style="width:90%;" name='content' value="${escapeHtml(data.content)}">`;
+            str += `<input style="padding:5px;" type="submit" value="수정">`;
+            str += `</form>`
+            console.log(str);
+            if ($("#comment" + cnum).length === 0) {
+                console.log("#comment" + cnum + " does not exist");
+            }
+            $("#comment" + cnum).html(str);
+        }
+    })
+}
+function escapeHtml(unsafe) {
+    return unsafe.replace(/[&<"']/g, function (match) {
+        switch (match) {
+            case "&":
+                return "&amp;";
+            case "<":
+                return "&lt;";
+            case "\"":
+                return "&quot;";
+            case "'":
+                return "&#039;";
+            default:
+                return match;
+        }
+    });
+}
+
 function deletePost(pnum) {
     if (confirm('삭제하시겠습니까?')) {
         location.href = '/board/deletePost?pnum=' + pnum;
+    }
+}
+
+function deleteResponse(rnum) {
+    if (confirm('삭제하시겠습니까?')) {
+        location.href = '/board/deleteResponse?rnum=' + rnum;
+    }
+}
+
+function deleteComment(cnum){
+    if(confirm('삭제하시겠습니까?')){
+        location.href = '/board/deleteComment?cnum=' + cnum;
     }
 }

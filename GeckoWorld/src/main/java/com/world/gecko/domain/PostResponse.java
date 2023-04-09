@@ -40,6 +40,10 @@ public class PostResponse { // 게시글 테이블
 	@Expose
 	private String w_nickname;
 
+	@Column(name = "title", nullable = false)
+	@Expose
+	private String title;
+	
 	@Column(name = "content", nullable = false)
 	@Expose
 	private String content;

@@ -54,7 +54,6 @@
 									</c:choose>
 							</ul>
 						</nav>
-
 					</div>
 				</header>
 			</div>
@@ -106,15 +105,16 @@
 												<!------ 제목 자리 ------>
 												<span id="title">&nbsp;${post.title}</span>
 											</h3>
-
-
-
 											<!-- ----작성자, 날짜표시 자리--- -->
 											<strong id="writerDate">${post.w_nickname}&nbsp;|&nbsp;<fmt:formatDate
 													value="${post.pdate}" pattern="yyyy-MM-dd hh:mm:ss" />&nbsp;|&nbsp;조회수&nbsp;${post.view_count}
 												&nbsp; <c:if test="${LOGIN_USER != null}">
 													<c:if test="${LOGIN_USER.id eq post.w_id}">
-														<button style="padding: 5px;">수정</button>&nbsp;<button onclick="deletePost('${post.pnum}');" style="padding: 5px;">삭제</button>
+														<button
+															onclick="location.href='/board/editPost?pnum=${post.pnum}"
+															style="padding: 5px;">수정</button>&nbsp;<button
+															onclick="deletePost('${post.pnum}');"
+															style="padding: 5px;">삭제</button>
 													</c:if>
 												</c:if>
 											</strong>
@@ -136,8 +136,14 @@
 														<tr>
 															<td style="width: 15%;">&nbsp;&nbsp;${comment.w_nickname}
 															</td>
-															<td style="width: 85%;">: &nbsp;&nbsp;
-																${comment.content}</td>
+															<td id="comment${comment.cnum}" style="width: 85%;"> &nbsp;&nbsp;
+																${comment.content} <c:if test="${LOGIN_USER != null }">
+																	<c:if test="${LOGIN_USER.id eq comment.w_id}">
+																		&nbsp;<button onclick="editComment(${comment.cnum});" style="padding: 5px;">수정</button>
+																		<button onclick="deleteComment(${comment.cnum});" style="padding: 5px;">삭제</button>
+																	</c:if>
+																</c:if>
+															</td>
 														</tr>
 														<tr>
 															<td colspan="2"><hr></td>

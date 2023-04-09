@@ -28,12 +28,18 @@ public class PostService {
 	}
 
 	public void newPost(Post post) {
-		if(post.getPnum()!=0) {
-			Post qPost = repo.findByPnum(post.getPnum());
-			qPost.setResponse_count(qPost.getResponse_count()+1);
-			repo.save(qPost);
-		}
 		repo.save(post);
+	}
+
+	public void editPost(Post edit) {
+		Optional<Post> savedPost = Optional.ofNullable(repo.findByPnum(edit.getPnum()));
+		if (savedPost.isPresent()) {
+			Post post = savedPost.get();
+			post.setTag(edit.getTag());
+			post.setTitle(edit.getTitle());
+			post.setContent(edit.getContent());
+			repo.save(post);
+		}
 	}
 
 	public Map<String, Object> getList(int currentPage) {
@@ -46,10 +52,10 @@ public class PostService {
 		map.put("totalPage", totalPage);
 		return map;
 	}
-	
+
 	public void deletePost(int pnum) {
 		Optional<Post> post = Optional.ofNullable(repo.findByPnum(pnum));
-		if(post.isPresent()) {
+		if (post.isPresent()) {
 			repo.delete(post.get());
 		}
 	}

@@ -34,22 +34,16 @@
 									<ul>
 										<li><a href="/board/list">게시판 main</a></li>
 										<li><a href="/board/listPhoto">게코 자랑 Photos</a></li>
-									</ul> <c:choose>
-										<c:when test="${LOGIN_USER != null}">
-											<li><a href="/user/mypage">회원 정보 mypage</a>
-												<ul>
-													<li><a href="#">개인정보수정 Edit personal info</a></li>
-													<li><a href="/user/reservation">공간대여내역 reserve
-															history</a></li>
-													<li><a href="#">쪽지함 message box</a></li>
-													<li><a href="#">알사용내역 egg history</a></li>
-													<li><a href="/user/out">계정관리 account management</a></li>
-												</ul></li>
-										</c:when>
-										<c:otherwise>
-											<li><a href="/user/login">로그인 sign in</a></li>
-										</c:otherwise>
-									</c:choose>
+									</ul>
+								<li><a href="/user/mypage">회원 정보 mypage</a>
+									<ul>
+										<li><a href="#">개인정보수정 Edit personal info</a></li>
+										<li><a href="/user/reservation">공간대여내역 reserve
+												history</a></li>
+										<li><a href="#">쪽지함 message box</a></li>
+										<li><a href="#">알사용내역 egg history</a></li>
+										<li><a href="/user/out">계정관리 account management</a></li>
+									</ul></li>
 							</ul>
 						</nav>
 
@@ -97,8 +91,8 @@
 												<select name='tag'
 													style="width: 200px; font-weight: bolder; color: navy;">
 													<option value="N">&nbsp;사담 SMALL TALK</option>
-													<option value="Q">&nbsp;질문 QUESTION</option>
 													<option value="I">&nbsp;정보 INFORMATION</option>
+													<option value="Q">&nbsp;질문 QUESTION</option>
 												</select> <br /> <strong>제목 title</strong> <br /> <br />&nbsp;&nbsp;<input
 													name='title' required style="width: 600px;">
 											</h3>

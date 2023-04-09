@@ -10,4 +10,5 @@ import com.world.gecko.domain.CommentPhoto;
 @Repository
 public interface CommentPhotoRepository extends JpaRepository<CommentPhoto, Integer> {
 	List<CommentPhoto> findListByNum(int num);
+	CommentPhoto findByCnum(int cnum);
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +32,7 @@ public class PostPhotoService {
 			throws Exception {
 		String resourceSrc = request.getServletContext().getRealPath("/resources");
 		String filePath = resourceSrc + "\\images\\upload\\";
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < url.length; i++) {
 			if (url[i].length() != 0) {
 				byte[] postByte = ImageUtils.imageToByteArray(filePath + url[i]);
 				if (i == 0) {
@@ -105,6 +106,13 @@ public class PostPhotoService {
 		// 사진글에서 사진들을 url로 urlList 
 		map.put("urlList", urlList);
 		return map;
+	}
+	
+	public void deletePostPhoto(int num) {
+		Optional<PostPhoto> post = Optional.ofNullable(repo.findByNum(num));
+		if(post.isPresent()) {
+			repo.delete(post.get());
+		}
 	}
 
 }
