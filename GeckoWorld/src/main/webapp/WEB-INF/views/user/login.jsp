@@ -19,28 +19,7 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<header id="header">
-					<div class="inner">
-						<!-- Logo -->
-						<h1>
-							<a href="/" id="logo">게코월드 GeckoWorld</a>
-						</h1>
-						<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="/">홈 Home</a></li>
-								<li><a href="/board/list">게시판 Board</a>
-									<ul>
-										<li><a href="/board/list">게시판 main</a></li>
-										<li class="current_page_item"><a href="/board/listPhoto">게코
-												자랑 Photos</a></li>
-									</ul></li>
-								<li class="current_page_item"><a href="/user/login">로그인
-										sign in</a></li>
-							</ul>
-						</nav>
-					</div>
-				</header>
+				<%@include file="/WEB-INF/views/headerNotUser.jsp" %>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -59,12 +38,6 @@
 										<ul class="style2">
 											<li><h4>
 													<a href="/user/join">회원가입</a>
-												</h4></li>
-											<li><h4>
-													<a href="#">아이디 찾기</a>
-												</h4></li>
-											<li><h4>
-													<a href="#">비밀번호 찾기</a>
 												</h4></li>
 										</ul>
 									</section>

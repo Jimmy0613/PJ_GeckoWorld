@@ -19,45 +19,12 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<header id="header">
-					<div class="inner">
-
-						<!-- Logo -->
-						<h1>
-							<a href="/" id="logo">게코월드 GeckoWorld</a>
-						</h1>
-
-						<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="/">홈 Home</a></li>
-								<li class="current_page_item"><a href="/board/list">게시판
-										Board</a>
-									<ul>
-										<li><a href="/board/list">게시판 main</a></li>
-										<li><a href="/board/listPhoto">게코 자랑 Photos</a></li>
-									</ul></li>
-								<c:choose>
-									<c:when test="${LOGIN_USER != null}">
-										<li><a href="/user/mypage">회원 정보 mypage</a>
-											<ul>
-												<li><a href="#">개인정보수정 Edit personal info</a></li>
-												<li><a href="/user/reservation">공간대여내역 reserve
-														history</a></li>
-												<li><a href="#">쪽지함 message box</a></li>
-												<li><a href="#">알사용내역 egg history</a></li>
-												<li><a href="/user/out">계정관리 account management</a></li>
-											</ul></li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="/user/login">로그인 sign in</a></li>
-									</c:otherwise>
-								</c:choose>
-							</ul>
-						</nav>
-
-					</div>
-				</header>
+				<c:if test="${LOGIN_USER ==null }">
+					<%@include file="/WEB-INF/views/headerNotUser.jsp"%>
+				</c:if>
+				<c:if test="${LOGIN_USER !=null }">
+					<%@include file="/WEB-INF/views/headerUser.jsp"%>
+				</c:if>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -75,10 +42,10 @@
 										</header>
 										<ul>
 											<li><h3>
-													<a href="/board/list">게시판 main</a>
+													<a href="/board/list">게시판 board</a>
 												</h3></li>
 											<li><h3>
-													<a href="/board/listPhoto">게코 자랑 Photos</a>
+													<a href="/board/listPhoto">사진게시판 gallery</a>
 												</h3></li>
 										</ul>
 									</section>

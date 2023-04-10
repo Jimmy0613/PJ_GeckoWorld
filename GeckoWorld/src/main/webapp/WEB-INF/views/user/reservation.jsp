@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -17,36 +18,7 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<header id="header">
-					<div class="inner">
-						<!-- Logo -->
-						<h1>
-							<a href="/" id="logo">게코월드 GeckoWorld</a>
-						</h1>
-						<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="/">홈 Home</a></li>
-								<li><a href="/board/list">게시판 Board</a>
-									<ul>
-										<li><a href="/board/list">게시판 main</a></li>
-										<li class="current_page_item"><a href="/board/listPhoto">게코
-												자랑 Photos</a></li>
-									</ul></li>
-								<li class="current_page_item"><a href="/user/mypage">회원
-										정보 mypage</a>
-									<ul>
-										<li><a href="#">개인정보수정 Edit personal info</a></li>
-										<li><a href="/user/reservation">공간대여내역 reserve
-												history</a></li>
-										<li><a href="#">쪽지함 message box</a></li>
-										<li><a href="#">알사용내역 egg history</a></li>
-										<li><a href="/user/out">계정관리 account management</a></li>
-									</ul></li>
-							</ul>
-						</nav>
-					</div>
-				</header>
+				<%@include file="/WEB-INF/views/headerUser.jsp" %>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -58,7 +30,7 @@
 							<div class="col-4 col-12-medium">
 								<div id="sidebar">
 									<!-- Sidebar -->
-									<%@include file="/WEB-INF/views/user/sidebar.jsp"%>
+									<%@include file="/WEB-INF/views/user/sidebarUser.jsp"%>
 								</div>
 							</div>
 							<div class="col-8 col-12-medium imp-medium">

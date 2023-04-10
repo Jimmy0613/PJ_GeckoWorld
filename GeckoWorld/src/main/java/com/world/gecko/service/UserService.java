@@ -62,4 +62,15 @@ public class UserService {
 			repo.delete(user.get());
 		}
 	}
+
+	public boolean passwordChange(String id, String pw) {
+		Optional<User> user = Optional.ofNullable(repo.findById(id));
+		if (user.isPresent()) {
+			User savedUser = user.get();
+			savedUser.setPw(PwEncoder.passwordEncode(pw));
+			repo.save(savedUser);
+			return true;
+		}
+		return false;
+	}
 }

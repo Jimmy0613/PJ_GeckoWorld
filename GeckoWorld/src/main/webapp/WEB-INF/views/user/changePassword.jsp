@@ -17,7 +17,7 @@
 		<div id="header-wrapper">
 			<div class="container">
 				<!-- Header -->
-				<%@include file="/WEB-INF/views/headerUser.jsp" %>
+				<%@include file="/WEB-INF/views/headerUser.jsp"%>
 			</div>
 		</div>
 		<!-- Main Wrapper -->
@@ -36,11 +36,38 @@
 								<div id="content">
 									<!-- Content -->
 									<article>
-										<header class="major">
-											<h2>회원 정보</h2>
-											<p>my page</p>
-										</header>
-										로그인 유저: ${LOGIN_USER.id}
+										<h2>비밀번호변경</h2>
+										<table>
+											<tr>
+												<td style="width: 200px;">* 기존 비밀번호 <span
+													style="color: green;" id="pw_check0"></span></td>
+												<td><input id="oldPw" type="password" name='pw'
+													placeholder="비밀번호 입력 (8 ~ 14자)" value="" required
+													style="width: 250px;"
+													onchange="old_pw_onchange('${LOGIN_USER.id}');"></td>
+											</tr>
+											<tr>
+												<td style="width: 200px;">* 새로운 비밀번호 <span
+													style="color: green;" id="pw_check1"></span></td>
+												<td><input id="pw1" type="password" name='pw'
+													placeholder="비밀번호 입력 (8 ~ 14자)" value="" required
+													style="width: 250px;" onchange="pw_onchange();"></td>
+											</tr>
+											<tr>
+												<td style="width: 200px;">* 새로운 비밀번호 확인 <span
+													style="color: green;" id="pw_check2"></span></td>
+												<td><input id="pw2" type="password" value="" required
+													placeholder="비밀번호 재입력" style="width: 250px;"
+													onchange="pw_onchange();"></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td colspan="4" id="pw_msg">
+													<!-- 비번 일치 여부 안내 출력 위치 -->
+												</td>
+											</tr>
+										</table>
+										<button onclick="change('${LOGIN_USER.id}');">변경</button>
 									</article>
 
 								</div>
@@ -61,5 +88,6 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
+	<script src="/resources/assets/js/pwChange.js"></script>
 </body>
 </html>

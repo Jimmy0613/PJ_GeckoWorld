@@ -40,16 +40,10 @@
 	<section>
 		<ul class="style2">
 			<li><h4>
-					<a href="#">개인정보수정 Edit personal info</a>
+					<a href="/user/changePassword">비밀번호변경 change password</a>
 				</h4></li>
 			<li><h4>
 					<a href="/user/reservation">공간대여내역 reserve history</a>
-				</h4></li>
-			<li><h4>
-					<a href="#">쪽지함 message box</a>
-				</h4></li>
-			<li><h4>
-					<a href="#">알사용내역 egg history</a>
 				</h4></li>
 			<li><h4>
 					<a href="/user/out">계정관리 account management</a>

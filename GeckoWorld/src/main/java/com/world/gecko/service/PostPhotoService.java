@@ -56,6 +56,7 @@ public class PostPhotoService {
 		repo.save(postPhoto);
 	}
 
+
 	public Map<String, Object> getList(int currentPage) {
 		Map<String, Object> map = new HashMap<>();
 		PageRequest pr = PageRequest.of(currentPage - 1, 6, Sort.by(Sort.Direction.DESC, "num"));
@@ -84,7 +85,7 @@ public class PostPhotoService {
 		PostPhoto postPhoto = repo.findByNum(num);
 		postPhoto.setView_count(postPhoto.getView_count() + 1);
 		repo.save(postPhoto);
-		
+
 		List<String> urlList = new ArrayList<>();
 		if (postPhoto.getPhoto1() != null) {
 			urlList.add(ImageUtils.byteToImageUrl(postPhoto.getPhoto1()));
@@ -103,14 +104,14 @@ public class PostPhotoService {
 		}
 		// 사진글
 		map.put("post", postPhoto);
-		// 사진글에서 사진들을 url로 urlList 
+		// 사진글에서 사진들을 url로 urlList
 		map.put("urlList", urlList);
 		return map;
 	}
-	
+
 	public void deletePostPhoto(int num) {
 		Optional<PostPhoto> post = Optional.ofNullable(repo.findByNum(num));
-		if(post.isPresent()) {
+		if (post.isPresent()) {
 			repo.delete(post.get());
 		}
 	}

@@ -43,4 +43,13 @@ public class UserRestController {
 		}
 		return false;
 	}
+
+	@GetMapping("/passwordChange.do")
+	public boolean pw_change(@RequestParam("id") String id, @RequestParam("pw") String pw) {
+		boolean result = false;
+		if (service.passwordChange(id, pw)) {
+			result = true;
+		}
+		return result;
+	}
 }
