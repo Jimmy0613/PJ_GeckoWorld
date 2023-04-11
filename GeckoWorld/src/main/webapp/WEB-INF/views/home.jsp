@@ -26,9 +26,66 @@
 				<c:if test="${LOGIN_USER !=null }">
 					<%@include file="/WEB-INF/views/headerUser.jsp"%>
 				</c:if>
-				<!-- Banner -->
-				<div id="banner"></div>
+			</div>
+		</div>
+		<!-- Main Wrapper -->
+		<div id="main-wrapper">
+			<div class="wrapper style3">
+				<div class="inner">
+					<div class="row">
+						<div class="col-12">
+							<!-- Feature 2 -->
+							<section class="container box feature1">
+								<header class="major">
+									<h2>우리 동네 날씨 보기</h2>
+									<p>weather</p>
+								</header>
+								<div class="col-12-medium" id="weatherBox"
+									style="font-size: 1.3em;">
+									<table>
+										<thead>
+											<tr>
+												<td id="skyIcon" style="font-size:1.5em; width:80px;"></td>
+												<td id="rainIcon" style="font-size:1.5em; width:80px;">☂</td>
+												<td id="tempIcon" style="font-size:1.5em; width:80px;">🌡</td>
+												<td id="humidityIcon" style="width:80px;">💧</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td id="sky" style="width:80px;"></td>
+												<td id="rain" style="width:80px;"></td>
+												<td id="temp" style="width:80px;"></td>
+												<td id="humidity" style="width:80px;"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<footer>
+									<p>
+										<select name="first" id="first" onchange="getSecond();"
+											style="width: 120px;">
+											<option value="시/도" selected hidden disabled>시/도</option>
+											<c:forEach var="sido" items="${first}">
+												<option value="${sido}">${sido}</option>
+											</c:forEach>
+										</select> <select name="second" id="second" onchange="getThird();"
+											style="width: 120px;">
+											<option value="시/군/구" selected hidden disabled>시/군/구</option>
+										</select> <select id="third" style="width: 120px;">
+											<option value="읍/면/동" selected hidden disabled>읍/면/동</option>
+										</select>
+										<button id="weatherBtn" onclick="search();">보기</button>
 
+									</p>
+									<h3>
+										<span id="area"></span> 날씨
+									</h3>
+								</footer>
+							</section>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -275,7 +332,7 @@
 	<script src="/resources/assets/js/breakpoints.min.js"></script>
 	<script src="/resources/assets/js/util.js"></script>
 	<script src="/resources/assets/js/main.js"></script>
-	<script src="/resources/assets/js/calendar.js"></script>
+	<script src="/resources/assets/js/home.js"></script>
 	<script src="/resources/assets/js/login.js"></script>
 
 </body>

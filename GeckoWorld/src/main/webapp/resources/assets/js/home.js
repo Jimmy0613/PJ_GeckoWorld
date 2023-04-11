@@ -1,4 +1,35 @@
-window.onload = function () { buildCalendar(); }
+window.onload = function () {
+    buildCalendar();
+    getForecast('서울특별시', 60, 127);
+}
+function getForecast(area, nx, ny) {
+    $.ajax({
+        url: `/api/getForecast?nx=${nx}&ny=${ny}`,
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            $('#area').text(area);
+            $('#temp').text(data.temp);
+            $('#humidity').text(data.humidity);
+            $('#rain').text(data.rain);
+            $('#sky').text(data.sky);
+            switch (data.sky) {
+                case "맑음":
+                    $("#skyIcon").text('🌞');
+                    break;
+                case "구름 많음":
+                    $("#skyIcon").text('⛅');
+                    break;
+                case "흐림":
+                    $("#skyIcon").text('☁');
+                    break;
+            }
+        },
+        fail: function () {
+            console.log('날씨 가져오기 실패');
+        }
+    })
+}
 let nowMonth = new Date();
 let today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -181,4 +212,91 @@ function modalClose() {
 
 function bookSubmit() {
     $("#bookSubmit").submit();
+}
+
+
+
+function getSecond() {
+    let firstSelect = document.querySelector("#first");
+    let first = firstSelect.options[firstSelect.selectedIndex].value;
+    if (first !== '시/도') {
+        let uri = encodeURI(`/api/getSecond?first=${first}`);
+        $.ajax({
+            url: uri,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $("#second").empty();
+                $.each(data, function (i, second) {
+                    let objOption = document.createElement('option');
+                    objOption.text = second;
+                    objOption.value = second;
+                    $("#second").append(objOption);
+                })
+            },
+            fail: function () {
+                console.log('시/군/구 가져오기 실패');
+            }
+        })
+    }
+}
+
+function getThird() {
+    let firstSelect = document.querySelector("#first");
+    let secondSelect = document.querySelector("#second");
+    if (firstSelect.selectedIndex !== -1 && secondSelect.selectedIndex !== -1) {
+        let first = firstSelect.options[firstSelect.selectedIndex].value;
+        let second = secondSelect.options[secondSelect.selectedIndex].value;
+        if (first !== '시/도' && second !== '시/군/구') {
+            let uri = encodeURI(`api/getThird?first=${first}&second=${second}`);
+            $.ajax({
+                url: uri,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    $("#third").empty();
+                    $.each(data, function (i, third) {
+                        let objOption = document.createElement('option');
+                        objOption.text = third;
+                        objOption.value = third;
+                        $("#third").append(objOption);
+                    })
+                },
+                fail: function () {
+                    console.log('읍/면/동 가져오기 실패');
+                }
+            })
+        }
+    }
+}
+
+function search() {
+    let firstSelect = document.querySelector("#first");
+    let secondSelect = document.querySelector("#second");
+    let thirdSelect = document.querySelector("#third");
+    if (firstSelect.selectedIndex !== -1 && secondSelect.selectedIndex !== -1 && thirdSelect.selectedIndex !== -1) {
+        let first = firstSelect.options[firstSelect.selectedIndex].value;
+        let second = secondSelect.options[secondSelect.selectedIndex].value;
+        let third = thirdSelect.options[thirdSelect.selectedIndex].value;
+        if (first !== '시/도' && second !== '시/군/구' && third !== '읍/면/동') {
+            let area = `${first} ${second} ${third}`;
+            let uri = encodeURI(`api/getNxny?first=${first}&second=${second}&third=${third}`);
+            $.ajax({
+                url: uri,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    let nx = data.nx;
+                    let ny = data.ny;
+                    getForecast(area, nx, ny);
+                },
+                fail: function () {
+                    console.log('좌표 가져오기 실패');
+                }
+            })
+        } else {
+            alert('지역을 끝까지 선택해주세요.');
+            return;
+        }
+    }
 }
