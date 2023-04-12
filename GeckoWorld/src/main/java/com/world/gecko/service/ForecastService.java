@@ -26,7 +26,7 @@ import com.world.gecko.domain.FcstNxNy;
 
 @Service
 public class ForecastService {
-	private final static String SERVICE_KEY = "JgtXJ1FClRXtO3dB%2Bnug1qseCuMjnKswOsRlFdYliHmcPyKKZYqQNs%2BDb6LpRK9m6Y0sOP6PR53OVGp9d7ZHZA%3D%3D";
+	private final static String SERVICE_KEY = "SERVICE_KEY";
 	private final static String SERVICE_URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?numOfRows=60&pageNo=1&dataType=JSON";
 	@Autowired
 	private EntityManager em;
