@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class KakaoApi {
-	public final static String REST_API_KEY = "20e2c80133ed378957f5189bbfbdb63b";
+	public final static String REST_API_KEY = "REST_API_KEY";
 
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
